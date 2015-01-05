@@ -5,6 +5,8 @@
 	my.name = "lido";
 	my.id = "lido";
 	my.title = "LIDO";
+	my.version = "0.0.1";
+	
 	
 	my.workflow = [];
 	
