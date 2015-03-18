@@ -63,7 +63,13 @@
 		var post_information = {
 			url: "http://dd-dariah.uni-koeln.de/exist/apps/wahn1/importpage.html",
 			xml_string_key: "content",
-			additional_data: "name='" + filename + "'"		
+			additional_data: "name='" + filename + "'",	
+			additional_headers: [
+				{
+					key: "Content-Type",
+					value: "application/x-www-form-urlencoded; charset=UTF-8"
+				}
+			]
 		};
 		
 		APP.GUI.createXMLOutputDIV(my.view_element, "LIDO", "ta_0", xml_string, filename, false, post_information);
