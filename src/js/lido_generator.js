@@ -43,7 +43,7 @@
 
 		xml.element("lidoRecID", data.start.object_id, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"],["lido:type","local"]]);
 		xml.open("category");
-			xml.element("conceptID",data.start.concept_id,[["lido:type","AAT"]]);
+			xml.element("conceptID", data.start.concept_id,[["lido:type","AAT"]]);
 			create_lido_term(data.start.type,"de","lang");
 		xml.close("category");
 		xml.open("descriptiveMetadata", [["xml:lang","de"]]);
@@ -57,7 +57,7 @@
 				xml.close("objectWorkTypeWrap");
 				xml.open("classificationWrap");
 					xml.open("classification", [["lido:type","AAT:type"]]);
-						xml.element("conceptID", "300264387" , [["lido:type","AAT:type"]]);
+						xml.element("conceptID", "300264387", [["lido:type","AAT:type"]]);
 						xml.element("term", data.start.type, [["lido:addedSearchTerm","yes"]]);
 					xml.close("classification");
 				xml.close("classificationWrap");
@@ -75,21 +75,21 @@
 							xml.element("appellationValue", data.object_identification.legal_body);
 							xml.close("legalBodyName");
 						xml.close("repositoryName");
-						xml.element("workID",data.object_identification.inventory_number,[["lido:type","inventory number"]]);
+						xml.element("workID", data.object_identification.inventory_number,[["lido:type","inventory number"]]);
 					xml.close("repositorySet");
 				xml.close("repositoryWrap");
 				xml.open("objectDescriptionWrap");
 					xml.open("objectDescriptionSet");
-						xml.element("descriptiveNoteValue",data.object_identification.descriptive_note);
+						xml.element("descriptiveNoteValue", data.object_identification.descriptive_note);
 					xml.close("objectDescriptionSet");
 				xml.close("objectDescriptionWrap");
 				xml.open("objectMeasurementsWrap");
 					xml.open("objectMeasurementsSet");
 						xml.open("objectMeasurements");
 							xml.open("measurementsSet");						
-								xml.element("measurementType",data.object_identification.measurements_type);
-								xml.element("measurementUnit",data.object_identification.measurements_unit);
-								xml.element("measurementValue",data.object_identification.display_object_measurements);								
+								xml.element("measurementType", data.object_identification.measurements_type);
+								xml.element("measurementUnit", data.object_identification.measurements_unit);
+								xml.element("measurementValue", data.object_identification.display_object_measurements);								
 							xml.close("measurementsSet");
 						xml.close("objectMeasurements");						
 					xml.close("objectMeasurementsSet");
@@ -97,7 +97,7 @@
 			xml.close("objectIdentificationWrap");
 			xml.open("eventWrap");
 				xml.open("eventSet");
-					xml.element("displayEvent",data.event.title);
+					xml.element("displayEvent", data.event.title);
 					xml.open("event");
 						xml.open("eventType");
 							create_lido_term(data.event.type,"de","lang");
@@ -107,12 +107,12 @@
 								xml.open("actor", [["lido:type","person"]]);
 									xml.element("actorID", data.event.actor.actor_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + data.event.actor.actor_id]]);
 									xml.open("nameActorSet");
-										xml.element("appellationValue",data.event.actor.name,[["lido:pref","preferred"]]);
+										xml.element("appellationValue", data.event.actor.name,[["lido:pref","preferred"]]);
 										//xml.element("sourceAppellation","http://d-nb.info/gnd/118713248");
 									xml.close("nameActorSet");
 									xml.open("vitalDatesActor");
-										xml.element("earliestDate",data.event.actor.earliest_date);
-										xml.element("latestDate",data.event.actor.latest_date);
+										xml.element("earliestDate", data.event.actor.earliest_date);
+										xml.element("latestDate", data.event.actor.latest_date);
 									xml.close("vitalDatesActor");
 									xml.element("genderActor", data.event.actor.gender);
 								xml.close("actor");
@@ -126,8 +126,8 @@
 						xml.close("culture");
 						xml.open("eventDate");
 							xml.open("date");
-								xml.element("earliestDate",data.event.earliest_date);
-								xml.element("latestDate",data.event.latest_date);
+								xml.element("earliestDate", data.event.earliest_date);
+								xml.element("latestDate", data.event.latest_date);
 							xml.close("date");
 						xml.close("eventDate");
 						/*
@@ -148,7 +148,7 @@
 			xml.open("objectRelationWrap");
 				xml.open("subjectWrap");
 					xml.open("subjectSet");
-						xml.element("displaySubject",data.object_relation.display_subject);
+						xml.element("displaySubject", data.object_relation.display_subject);
 						xml.open("subject");
 							/*
 							xml.open("subjectActor");
@@ -163,24 +163,24 @@
 							xml.close("subjectActor");
 							*/
 							xml.open("subjectDate");
-								xml.element("displayDate",data.object_relation.subject_date);
+								xml.element("displayDate", data.object_relation.subject_date);
 							xml.close("subjectDate");
 							xml.open("subjectEvent");
-								xml.element("displayEvent",data.object_relation.event.title);
+								xml.element("displayEvent", data.object_relation.event.title);
 								xml.open("event");
 									xml.open("eventType");
 										create_lido_term(data.object_relation.event.type);
 									xml.close("eventType");
 									xml.open("eventName");
-										xml.element("appellationValue",data.object_relation.event.title);
+										xml.element("appellationValue", data.object_relation.event.title);
 									xml.close("eventName");
 									// Das muss noch in eine Funktion
 									xml.open("eventActor"); 
-										xml.element("displayActorInRole",data.object_relation.event.actor.role + ": " + data.object_relation.event.actor.name);
+										xml.element("displayActorInRole", data.object_relation.event.actor.role + ": " + data.object_relation.event.actor.name);
 										xml.open("actorInRole");
 											xml.open("actor");
 												xml.open("nameActorSet");
-													xml.element("appellationValue",data.object_relation.event.actor.name);
+													xml.element("appellationValue", data.object_relation.event.actor.name);
 												xml.close("nameActorSet");
 											xml.close("actor");
 											xml.open("roleActor");

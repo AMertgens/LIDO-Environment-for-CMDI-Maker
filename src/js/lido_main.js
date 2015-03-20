@@ -118,6 +118,13 @@
 	};
 	
 	
+	my.getProjectName = function(){
+		
+		return my.workflow[1].getSaveData().title;
+		
+	};
+	
+	
 	my.reset = function(){
 	
 		return;
