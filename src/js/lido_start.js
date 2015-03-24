@@ -17,7 +17,9 @@
 	
 	my.init = function(view){
 		
-		dom.h3(view, "Hey there! You want to create a LIDO document of your object? That's great! Let's begin by giving information for basic record identification.");
+		var h3 = dom.h3(view, "Hey there! You want to create a LIDO document of your object? That's great! Let's begin by giving information for basic record identification. ");
+		
+		dom.a(h3, "", "",  undefined, "Or load a document from the database.", function(){ my.parent.showIdentifierSelect();});
 		
 		dom.br(view);
 		APP.forms.make(view, my.parent.start_form, "start_", "start_", undefined);

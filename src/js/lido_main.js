@@ -47,33 +47,89 @@
 	}
 	
 	
-	my.importLIDOXML = function(string){
+	my.getIdentifiersFromDB = function(callback){
+	
+		getWithAJAX(
+			"http://dd-dariah.uni-koeln.de/exist/apps/wahn/oai-pmh.xql?verb=ListIdentifiers&metadataPrefix=lido",		
+			function(http){
+				
+				var xml = http.responseXML;
+				log(xml);
+				
+				var list = xmlQuery(xml, ["OAI-PMH", "ListIdentifiers"]);
+				
+				var identifiers = map(list.children, function(header){
+				
+					return xmlQueryText(header, ["identifier"]);
+				
+				});
+				
+				callback(identifiers);
+			
+			}
+		);
+	
+	};
+	
+	my.showIdentifierSelect = function(){
+	
+		my.getIdentifiersFromDB(function(identifiers){
+	
+			log(identifiers);
+			
+			APP.GUI.showSelectFrame(identifiers, identifiers, my.loadDocumentFromDB, "LIDO Documents in Database", undefined);
 		
-		var xml = ( new window.DOMParser() ).parseFromString(string, "text/xml");
+		});
+	
+	
+	};
+	
+	
+	my.loadDocumentFromDB = function(identifier){
+	
+		var url = "http://dd-dariah.uni-koeln.de/exist/apps/wahn/oai-pmh.xql?verb=GetRecord&identifier=" + identifier + "&metadataPrefix=lido"
+	
+		getWithAJAX(
+			url,		
+			function(http){
+				
+				var xml = http.responseXML;
+				log(xml);
 
-		log("successfully parsed xml string: ");
-		log(xml);
+				var lido = xmlQuery(xml, ["OAI-PMH", "GetRecord", "record", "metadata", "lido"]);
+				
+				log(lido);
+				
+				my.importLIDOXML(lido);
+			
+			}
+		);	
+	
+	};
+	
+	
+	my.importLIDOXML = function(xml){
 		
 		var start = {};
 
 		//bei attributes mit prefix, bei tags ohne
 		start = {
-			"source": xmlQuery(xml, ["lido", "lidoRecID"]).getAttribute("lido:source"),
-			"object_id": xmlQueryText(xml, ["lido", "lidoRecID"]),
-			"concept_id": xmlQueryText(xml, ["lido", "category", "conceptID"]),
+			"source": xmlQuery(xml, ["lidoRecID"]).getAttribute("lido:source"),
+			"object_id": xmlQueryText(xml, ["lidoRecID"]),
+			"concept_id": xmlQueryText(xml, ["category", "conceptID"]),
 			"legal_body": "",
-			"type": xmlQueryText(xml, ["lido", "category", "term"]),
+			"type": xmlQueryText(xml, ["category", "term"]),
 			"classification": "",
 			"rights": {
-				"type": xmlQueryText(xml, ["lido", "administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsType", "term"]),
-				"earliest_date": xmlQueryText(xml, ["lido", "administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "earliestDate"]),
-				"latest_date": xmlQueryText(xml, ["lido", "administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "latestDate"]),
-				"legal_body": xmlQueryText(xml, ["lido", "administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsHolder", "legalBodyName", "appellationValue"])
+				"type": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsType", "term"]),
+				"earliest_date": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "earliestDate"]),
+				"latest_date": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "latestDate"]),
+				"legal_body": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsHolder", "legalBodyName", "appellationValue"])
 			},
 			"record": {
-				"id": xmlQueryText(xml, ["lido", "administrativeMetadata", "recordWrap", "recordID"]),
-				"type": xmlQueryText(xml, ["lido", "administrativeMetadata", "recordWrap", "recordType", "term"]),
-				"source": xmlQueryText(xml, ["lido", "administrativeMetadata", "recordWrap", "recordSource", "legalBodyName", "appellationValue"]),
+				"id": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordID"]),
+				"type": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordType", "term"]),
+				"source": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordSource", "legalBodyName", "appellationValue"]),
 				"rights": {
 					"type": "",
 					"date": "",
@@ -82,10 +138,10 @@
 				}
 			},
 			"resource": {
-				"id": xmlQueryText(xml, ["lido", "administrativeMetadata", "resourceWrap", "resourceSet", "resourceID"]),
-				"link": xmlQueryText(xml, ["lido", "administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
-				"representation_type": xmlQuery(xml, ["lido", "administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation"]).getAttribute("lido:type"),
-				"type": xmlQueryText(xml, ["lido", "administrativeMetadata", "resourceWrap", "resourceSet", "resourceType", "term"]),
+				"id": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceID"]),
+				"link": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
+				"representation_type": xmlQuery(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation"]).getAttribute("lido:type"),
+				"type": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceType", "term"]),
 				"source": "res so",
 				"rights": {
 					"type": "erijr",
