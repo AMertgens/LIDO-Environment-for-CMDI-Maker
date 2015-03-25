@@ -5,7 +5,7 @@
 	my.name = "lido";
 	my.id = "lido";
 	my.title = "LIDO";
-	my.version = "0.0.1";
+	my.version = "0.1";
 	
 	
 	my.workflow = [];
@@ -142,12 +142,12 @@
 				"link": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
 				"representation_type": xmlQuery(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation"]).getAttribute("lido:type"),
 				"type": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceType", "term"]),
-				"source": "res so",
+				"source": "",
 				"rights": {
-					"type": "erijr",
-					"date": "rij",
-					"holder": "wrgji",
-					"credit_line": "rojjrgji"
+					"type": "",
+					"date": "",
+					"holder": "",
+					"credit_line": ""
 				}
 			}
 		}
