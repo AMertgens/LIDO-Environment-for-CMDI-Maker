@@ -102,7 +102,7 @@
 					name: "source",
 					type: "text",
 				},
-				{
+				/*{
 					heading: "Record Rights",
 					type: "subarea",
 					name: "rights",
@@ -132,7 +132,7 @@
 							comment: "Definition: Acknowledgement of the rights associated with the physical and/or digital object as requested.",
 						},	
 					]
-				}
+				}*/
 			]
 		},
 		{
@@ -167,7 +167,7 @@
 					comment: "Source of the information given here. This is probably you or your institution.",
 					default_value: "Theaterwissenschaftliche Sammlung, Universität zu Köln"
 				},				
-				{
+				/*{
 					heading: "Rights Resource",
 					type: "subarea",
 					name: "rights",
@@ -197,7 +197,7 @@
 							comment: "Definition: Acknowledgement of the rights associated with the physical and/or digital object as requested.",
 						},	
 					]
-				}
+				}*/
 			]
 		}		
 	]

@@ -114,9 +114,9 @@
 			"source": xmlQuery(xml, ["lidoRecID"]).getAttribute("lido:source"),
 			"object_id": xmlQueryText(xml, ["lidoRecID"]),
 			"concept_id": xmlQueryText(xml, ["category", "conceptID"]),
-			"legal_body": "",
+			"legal_body": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
 			"type": xmlQueryText(xml, ["category", "term"]),
-			"classification": "",
+			"classification": xmlQueryText(xml, ["category", "conceptID"]),
 			"rights": {
 				"type": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsType", "term"]),
 				"earliest_date": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "earliestDate"]),
@@ -126,26 +126,14 @@
 			"record": {
 				"id": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordID"]),
 				"type": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordType", "term"]),
-				"source": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordSource", "legalBodyName", "appellationValue"]),
-				"rights": {
-					"type": "",
-					"date": "",
-					"holder": "",
-					"credit_line": ""
-				}
+				"source": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordSource", "legalBodyName", "appellationValue"])
 			},
 			"resource": {
 				"id": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceID"]),
 				"link": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
 				"representation_type": xmlQuery(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation"]).getAttribute("lido:type"),
 				"type": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceType", "term"]),
-				"source": "",
-				"rights": {
-					"type": "",
-					"date": "",
-					"holder": "",
-					"credit_line": ""
-				}
+				"source": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceSource", "legalBodyName", "appellationValue"])
 			}
 		}
 		
@@ -172,7 +160,7 @@
 			"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "latestDate"]),
 			"culture": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "culture", "term"]),
 			"actor": {
-				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"],
+				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
 				"actor_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
 				"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
 				"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
