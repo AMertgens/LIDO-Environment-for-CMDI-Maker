@@ -10,10 +10,6 @@
 
 	var digitalisat = lido_environment.workflow[0];	
 
-	var create_lido_digitalisat = function (data) {
-		create_lido_entry(data);
-	}
-
 	var create_lido_term = function (term,entity,etype) {
 		if (etype=="search") {
 			xml.element("term", term , [["lido:addedSearchTerm",entity]]);
@@ -41,7 +37,7 @@
 			["xsi:schemaLocation","http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd"]
 		]);
 
-		xml.element("lidoRecID", data.start.object_id, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"],["lido:type","local"]]);
+		xml.element("lidoRecID", data.start.object_id, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"], ["lido:type","local"]]);
 		xml.open("category");
 			xml.element("conceptID", data.start.concept_id,[["lido:type","AAT"]]);
 			create_lido_term(data.start.type,"de","lang");
@@ -394,7 +390,7 @@
 	};
 
 	console.log(data);
-	create_lido_digitalisat(data);
+	create_lido_entry(data);
 	
 	
 	return xml.getString();

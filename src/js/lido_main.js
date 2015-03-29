@@ -19,13 +19,7 @@
 	
 	var xmlQueryText = function(xml, array){
 	
-		var node = xml;
-	
-		for (var n=0; n< array.length; n++){
-			
-			node = node.getElementsByTagName(array[n])[0];
-			
-		}
+		var node = xmlQuery(xml, array);
 		
 		return node.textContent.trim();
 		
@@ -71,6 +65,7 @@
 	
 	};
 	
+	
 	my.showIdentifierSelect = function(){
 	
 		my.getIdentifiersFromDB(function(identifiers){
@@ -101,6 +96,8 @@
 				log(lido);
 				
 				my.importLIDOXML(lido);
+				
+				log("XML imported!");
 			
 			}
 		);	
@@ -152,6 +149,21 @@
 			}
 		}
 		
+		my.workflow[0].recall(start);
+		
+		
+		var object_identification = {
+			"title": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "titleWrap", "titleSet", "appellationValue"]),
+			"legal_body": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
+			"inventory_number": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "workID"]),
+			"descriptive_note": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectDescriptionWrap", "objectDescriptionSet", "descriptiveNoteValue"]),
+			"display_object_measurements": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementValue"]),
+			"measurements_unit": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementUnit"]),
+			"measurements_type": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementType"]),
+		};
+		
+		my.workflow[1].recall(object_identification);
+		
 		return start;
 		
 	};
@@ -176,7 +188,7 @@
 	
 	my.getProjectName = function(){
 		
-		return my.workflow[1].getSaveData().title;
+		return my.workflow[0].getSaveData().object_id;
 		
 	};
 	

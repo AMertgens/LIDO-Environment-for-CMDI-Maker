@@ -17,7 +17,8 @@
 					heading: "RecID",
 					name: "object_id",
 					type: "text",
-					comment: "Identifier of this object. Maybe something like DE-Wahn2014/lido-obj00154983"
+					comment: "Identifier of this object. Maybe something like DE-Wahn2014/lido-obj00154983",
+					allowed_chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 				},
 				{
 					heading: "Concept ID",

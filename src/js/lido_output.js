@@ -34,6 +34,12 @@
 	my.view = function(){
 	
 		APP.save();
+		
+		if (start.getSaveData().object_id == ""){
+			APP.view("VIEW_lido_start");
+			APP.alert("You must provide a valid Record ID!");
+			return;		
+		}
 	
 		my.generate();
 		
@@ -58,10 +64,10 @@
 		
 		var xml_string = lido_environment.lido_generator(data);
 
-		var filename = "LIDO.xml";
+		var filename = lido_environment.getProjectName() + ".xml";
 		
 		var post_information = {
-			url: "http://dd-dariah.uni-koeln.de/exist/apps/wahn1/importpage.html",
+			url: "http://dd-dariah.uni-koeln.de/exist/apps/wahn/importpage.html",
 			xml_string_key: "content",
 			additional_data: "name=" + filename,	
 			additional_headers: [
@@ -72,7 +78,7 @@
 			]
 		};
 		
-		APP.GUI.createXMLOutputDIV(my.view_element, "LIDO", "ta_0", xml_string, filename, false, post_information);
+		APP.GUI.createXMLOutputDIV(my.view_element, filename, "ta_0", xml_string, filename, false, post_information);
 
 	};
 	
