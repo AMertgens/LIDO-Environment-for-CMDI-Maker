@@ -164,6 +164,25 @@
 		
 		my.workflow[1].recall(object_identification);
 		
+		
+		var event = {
+			"title": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "displayEvent"]),
+			"type": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventType", "term"]),
+			"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "earliestDate"]),
+			"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "latestDate"]),
+			"culture": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "culture", "term"]),
+			"actor": {
+				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"],
+				"actor_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
+				"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
+				"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
+				"role": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "roleActor", "term"]),
+				"gender": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "genderActor"]),
+			}
+		};
+		
+		my.workflow[2].recall(event);
+		
 		return start;
 		
 	};
