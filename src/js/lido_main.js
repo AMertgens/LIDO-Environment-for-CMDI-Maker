@@ -181,7 +181,33 @@
 			}
 		};
 		
+		
 		my.workflow[2].recall(event);
+		
+		
+		var object_relation = {
+			"display_subject": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "displaySubject"]),
+			"subject_concept": "",
+			"subject_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectDate", "displayDate"]),
+			"subject_place": "",
+			"event": {
+				"title": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "displayEvent"]),
+				"type": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventType", "term"]),
+				"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventDate", "earliestDate"]),
+				"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventDate", "latestDate"]),
+				"culture": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "culture", "term"]),
+				"actor": {
+					"name": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
+					"actor_id": "",
+					"earliest_date": "YYYY",
+					"latest_date": "YYYY",
+					"role": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventActor", "actorInRole", "roleActor"]),
+					"gender": "male"
+				}
+			}
+		};
+		
+		my.workflow[3].recall(object_relation);
 		
 		return start;
 		
