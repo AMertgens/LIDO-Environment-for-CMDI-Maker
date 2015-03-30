@@ -45,8 +45,7 @@
 				{
 					heading: "Classification",
 					name: "classification",
-					type: "text",
-					//comment: ""
+					type: "text"
 				},	
 				{
 					heading: "Rights Work",
