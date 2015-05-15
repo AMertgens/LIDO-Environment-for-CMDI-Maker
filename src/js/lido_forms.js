@@ -1,4 +1,134 @@
-﻿lido_environment.start_form = {
+﻿lido_environment.forms[0] = {
+	title: "form_0",
+	type: "form",
+	fields: [
+		{
+			type: "subarea",
+			title: "Digitalisierungssignatur",
+			name: "digitalisierungssignatur",
+			fields: [
+				{
+					heading: undefined,
+					name: "digitalisierungssignatur",
+					type: "text",
+					default_value: "TWS_"
+				}
+			]
+		},
+		{
+			type: "subarea",
+			title: "Eintragsdokumentation",
+			name: "eintragsdokumentation",
+			fields: [
+				{
+					heading: "Eintragsart",
+					name: "eintragsart",
+					type: "open_vocabulary",
+					vocabulary: [],
+				},
+				{
+					heading: "Objektsignatur",
+					name: "objektsignatur",
+					type: "text"
+				}
+			]
+		}
+	],
+};
+
+
+lido_environment.forms[1] = {
+	title: "form_1",
+	type: "form",
+	fields: [
+		{
+			type: "column",
+			heading: "Objekt-Identifikation",
+			name: "objekt_identifikation",
+			fields: [
+				{
+					heading: "Titel",
+					name: "titel",
+					type: "text"
+				},
+				{
+					heading: "Objektbeschreibung",
+					name: "objektbeschreibung",
+					type: "textarea"
+				},
+				{
+					heading: "Maße",
+					name: "maße",
+					type: "text"
+				},
+				{
+					heading: "Maßeinheit",
+					name: "maßeinheit",
+					type: "text",
+					default_value: "cm"
+				},
+				{
+					heading: "Maßtyp",
+					name: "maßtyp",
+					type: "text",
+					default_value: "H x B x T"
+				},
+				{
+					heading: "Inventarnummer",
+					name: "inventarnummer",
+					type: "text"
+				},
+				{
+					heading: "Besitzende Institution",
+					name: "besitzende_institution",
+					type: "text",
+					default_value: "Theaterwissenschaftliche Sammlung, UNiversität zu Köln"
+				},
+				{
+					heading: "Standort in der TWS"
+					name: "standort_tws",
+					type: "open_vocabulary",
+					vocabulary: []
+				}
+			]
+		},
+		{
+			type: "column",
+			heading: "Objekt-Zuordnung",
+			name: "objektzuordnung",
+			fields: [
+				{
+					heading: "Objektgattung",
+					name: "objektgattung",
+					type: "open_vocabulary",
+					vocabulary: ["Bild", "Figur", "Maske", "Modell", "Schrift"]
+				},
+				{
+					heading: "Objektart",
+					name: "objektart",
+					type: "open_vocabulary",
+					vocabulary: []
+				},
+				{
+					type: "subarea",
+					heading: "Thematik / Bildinhalt / Abgebildete Person",
+					name: "thematik"
+					fields: [
+						{
+							heading: "Thematik",
+							name: "thematik",
+							type: "textarea"
+						}
+					]
+				}
+			]
+		}
+	]
+	
+}
+
+
+lido_environment.start_form = {
 
 	title: "lido-start",
 	type: "form",
