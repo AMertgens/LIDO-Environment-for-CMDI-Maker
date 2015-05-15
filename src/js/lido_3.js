@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 
-eldp_environment.workflow[1] = (function(){
+lido_environment.workflow[2] = (function(){
 	'use strict';
 	
 	
@@ -25,27 +25,6 @@ eldp_environment.workflow[1] = (function(){
 
 		forEach(my.persons.getActive().languages.actor_languages, my.languages.set);
 
-	};
-	
-	
-	var getLanguagesOfActivePersonFromForm = function(){
-	
-		var array = my.languages.languages_of_active_person.map(function(ALO){
-			
-			if (ALO.name_type == "LOCAL"){
-			
-				ALO.name = get("person_languages_" + ALO.id + "_name_input");
-			
-			}
-			
-			ALO.additional_information = get("person_languages_" + ALO.id + "addInfo");
-			
-			return ALO;
-			
-		});
-		
-		return array;
-	
 	};
 	
 	
@@ -64,7 +43,7 @@ eldp_environment.workflow[1] = (function(){
 	
 	var blankForm = function(){
 
-		g(my.element_id_prefix + "form_title").innerHTML = l("new_person");
+		g(my.element_id_prefix + "form_title").innerHTML = "Neue AkteurIn";
 
 		APP.forms.fill(person_form, my.element_id_prefix);
 
@@ -92,26 +71,23 @@ eldp_environment.workflow[1] = (function(){
 	//PUBLIC
 
 	var my = {};
-	my.parent = eldp_environment;
+	my.parent = lido_environment;
 	var bundle;
 	
-	var l = function(arg1, arg2){
-		return my.parent.l("persons", arg1, arg2);
-	}
-	
-	var person_form = my.parent.person_form;
+	var person_form = my.parent.forms.actor_herstellung;
 	
 	my.persons = new ObjectList();
 	
-	my.element_id_prefix = "person_";
+	my.element_id_prefix = "lido3_";
 	
 	my.identity = {
-		id: "persons",
-		title: "Persons",
+		id: "herstellung",
+		title: "Herstellung",
 		icon: "user"
 	};
 	
 	my.module_view;
+	my.actor_wrap;
 	
 	my.init = function(view){
 	
@@ -121,12 +97,20 @@ eldp_environment.workflow[1] = (function(){
 		
 		bundle = my.parent.workflow[2];
 		
-		my.gui_list = new APP.GUI.FORMS.clickableListSmall(view, [], [], handleClickOnPersonList, my.element_id_prefix + "list", 0);
+		my.left_wrap = dom.make("div", my.element_id_prefix + "left_wrap", "left_wrap", my.module_view);
 		
-		var ac_view = dom.make("div", my.element_id_prefix + "view","",view);
+		dom.h2(my.left_wrap, "Herstellung des Objekts");
+		dom.br(my.left_wrap);
+		
+		APP.forms.make(my.left_wrap, my.parent.forms.herstellung, "herstellung_", "herstellung_", undefined);
+		
+		
+		my.actor_wrap = dom.make("div", my.element_id_prefix + "actor_wrap", "actor_wrap", my.module_view);
+		
+		my.gui_list = new APP.GUI.FORMS.clickableListSmall(my.actor_wrap, [], [], handleClickOnPersonList, my.element_id_prefix + "list", 0);
+		
+		var ac_view = dom.make("div", my.element_id_prefix + "view","", my.actor_wrap);
 	
-		my.languages.init();
-		
 		my.refresh(true);
 		
 	};
@@ -147,19 +131,19 @@ eldp_environment.workflow[1] = (function(){
 	
 	my.showNoPersonsMessage = function(){
 	
-		var view = my.module_view;
+		var view = my.actor_wrap;
 	
 		view.innerHTML = "";
 		
 		var no_persons_message = dom.make("h2","no_persons_text","no_persons_text", view);
-		no_persons_message.innerHTML = l("there_are_no_persons_yet") + " " + 
-		l("why_not_create_one__before_link");
+		no_persons_message.innerHTML = "Es gibt noch keine Actors." + " " + 
+		"Warum ";
 
 		var new_person_link = dom.make("a","new_person_link","new_person_link", no_persons_message);
 
-		new_person_link.innerHTML = l("why_not_create_one__link");
+		new_person_link.innerHTML = "erstellst";
 
-		no_persons_message.innerHTML += l("why_not_create_one__after_link");
+		no_persons_message.innerHTML += " du nicht einen?";
 
 		g("new_person_link").addEventListener('click', function() {my.createNewPerson(); });
 		//we have to use g here instead of no_bundles_link, because latter isn't there anymore. it has been overwritten by ...innerHTML --> logically!
@@ -182,50 +166,47 @@ eldp_environment.workflow[1] = (function(){
 			{
 				id: "link_new_person",
 				icon: "plus",
-				label: l("new_person"),
+				label: "Neue AkteurIn",
 				onclick: function() { my.createNewPerson(); }
 			},
 			{
 				id: "link_delete_active_person",
 				icon: "reset",
-				label: l("delete_this_person"),
+				label: "Diese AkteurIn löschen",
 				onclick: function() { my.handleClickOnDeletePerson(); }
 			},
 			{
 				id: "link_sort_persons_alphabetically",
 				icon: "az",
-				label: l("sort_persons_alphabetically"),
-				type: "function_wrap",
-				wrapper_id: "sa_div",
-				sub_div: "sa_subdiv",
-				sub_div_innerHTML: 
-					'<input type="radio" name="sa_by" value="nameKnownAs"> By Name (known as)<br>'+
-					'<input type="radio" name="sa_by" value="fullName" checked> By Full Name<br>'+
-					'<input type="radio" name="sa_by" value="nameSortBy"> By Name (Sort By)',
+				label: "AkteurInnen lphabetisch sortieren",
 				onclick: function() {
 				
 					my.saveActivePerson();
-			
-					var key = dom.getSelectedRadioValue(dom.getByName("sa_by"));
-					my.persons.sortByKey(key);
+					my.persons.sortByKey("name");
 					my.refresh();
 		
-					APP.log(l("persons_alphabetically_sorted"));
+					APP.log("Personen sortiert");
 					
 				}
 			},
 			{
 				id: "link_duplicateActivePerson",
 				icon: "duplicate_user",
-				label: l("duplicate_this_person"),
+				label: "AkteurIn duplizieren",
 				onclick: function() {
 					my.saveActivePerson();
 					my.persons.duplicateActive();
 					my.refresh();
 				
-					APP.log(l("person_saved_and_duplicated"),"success");
+					APP.log("Person gespeichert und dupliziert","success");
 			
 				}
+			},
+			{
+				id: "link_delete_all_persons",
+				icon: "reset",
+				label: "Alle AkteurInnen löschen",
+				onclick: my.erase_database
 			}
 		];
 	};
@@ -233,7 +214,7 @@ eldp_environment.workflow[1] = (function(){
 
 	my.erase_database = function(){
 
-		APP.confirm(l("confirm_erasing_persons_db"), function (e) {
+		APP.confirm("Möchtest du wirklich alle AkteurInnen löschen?", function (e) {
 
 			if (e) {
 				// user clicked "ok"
@@ -245,12 +226,14 @@ eldp_environment.workflow[1] = (function(){
 				
 				my.persons.reset();
 
-				APP.log(l("all_persons_deleted"));
+				APP.log("Alle AkteurInnen gelöscht");
 				
 				my.refresh();
 
 			}
-		}, l("no"), l("yes_delete_all_persons"));
+			
+		}, "Nein", "Ja, löschen!");
+		
 	};
 
 
@@ -273,7 +256,6 @@ eldp_environment.workflow[1] = (function(){
 		my.createFormIfNotExistent();
 		
 		my.gui_list.changeHighlight(person_index);
-		my.languages.clearActivePersonLanguages();
 		
 		my.persons.setPointer(person_id);
 		
@@ -283,8 +265,6 @@ eldp_environment.workflow[1] = (function(){
 		
 		APP.forms.fill(person_form, my.element_id_prefix, person_to_display);
 		
-		showLanguagesOfActivePerson();
-
 	};
 	
 	
@@ -295,7 +275,7 @@ eldp_environment.workflow[1] = (function(){
 		var person_name = my.getDisplayName(my.persons.getActive());
 		
 		if (person_name == ""){
-			form_title.innerHTML = l("unnamed_person");
+			form_title.innerHTML = "Unbenannte AkteurIn";
 		}
 		
 		else {
@@ -313,20 +293,18 @@ eldp_environment.workflow[1] = (function(){
 			return;
 		};
 	
-		ac_view = dom.make("div", "person_view", "person_view", my.module_view);
+		ac_view = dom.make("div", "person_view", "person_view", my.actor_wrap);
 		
 		ac_view.innerHTML = "";
 		
 		var title_div = dom.make("div", my.element_id_prefix + "title_div","",ac_view);
-		dom.make("h1", my.element_id_prefix + "form_title", "", title_div, l("new_person"));
+		dom.make("h1", my.element_id_prefix + "form_title", "", title_div, "Neue AkteurIn");
 		dom.make("div", my.element_id_prefix + "content_div","", ac_view);
 
-		APP.forms.make(g(my.element_id_prefix + "content_div"), person_form, my.element_id_prefix, my.element_id_prefix, undefined, my.languages.makeInputInForm);
+		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.element_id_prefix, my.element_id_prefix, undefined, undefined);
 		
 		//To refresh name and role in person list as soon as they are changed by the user
-		g(my.element_id_prefix + "nameKnownAs").addEventListener("blur", my.saveActivePerson);
-		g(my.element_id_prefix + "fullName").addEventListener("blur", my.saveActivePerson);
-		g(my.element_id_prefix + "nameSortBy").addEventListener("blur", my.saveActivePerson);
+		g(my.element_id_prefix + "name").addEventListener("blur", my.saveActivePerson);
 
 	};
 
@@ -385,7 +363,7 @@ eldp_environment.workflow[1] = (function(){
 		
 		//after the current person is saved, check, if all persons have a name
 		if (!isEveryPersonNamed()){
-			APP.alert(l("please_give_all_persons_a_name_before_creating_new_one"));
+			APP.alert("Bitte gib all deinen AkteurInnen zuerst einen Namen!");
 			return;
 		}
 		
@@ -420,13 +398,13 @@ eldp_environment.workflow[1] = (function(){
 		
 		if (name_of_person == ""){
 		
-			confirm_message = l("really_erase_this_person");
+			confirm_message = "Möchtest du diese AkteurIn wirklich löschen?";
 		
 		}
 		
 		else {
 		
-			confirm_message = l("really_erase_before_name") + name_of_person + l("really_erase_after_name");
+			confirm_message = "Möchtest du " + name_of_person + "wirklich löschen?";
 		
 		}
 
@@ -441,10 +419,10 @@ eldp_environment.workflow[1] = (function(){
 				
 				my.deleteActivePerson();
 				
-				APP.log(l("person_deleted_before_name") + name_of_person + l("person_deleted_after_name"));
+				APP.log("" + name_of_person + " gelöscht!");
 
 			}
-		}, l("no"), l("yes_delete_person"));
+		}, "Nein", "Ja, löschen");
 	
 	};
 	
@@ -457,6 +435,7 @@ eldp_environment.workflow[1] = (function(){
 	};
 	
 	
+	/*
 	my.getAge = function (bundle_id, person_id){
 
 		var pers = my.persons.getByID(person_id);
@@ -499,11 +478,11 @@ eldp_environment.workflow[1] = (function(){
 		}
 
 	};
-	
+	*/
 
 	my.refresh = function(not_in_bundles){
 		
-		my.module_view.innerHTML = "";
+		my.actor_wrap.innerHTML = "";
 		
 		var display_names = my.persons.map(function(pers){
 			return my.getDisplayName(pers.id);
@@ -555,23 +534,16 @@ eldp_environment.workflow[1] = (function(){
 			return console.warn("Person undefined!");
 		}
 		
-		if (person.fullName && person.fullName != ""){
-			return person.fullName;
-		}
-		
-		if (person.nameSortBy && person.nameSortBy != ""){
-			return person.nameSortBy;
-		}
-		
-		if (person.nameKnownAs && person.nameKnownAs != ""){
-			return person.nameKnownAs;
+		if (person.name && person.name != ""){
+			return person.name;
 		}
 
-		return l("unnamed_person");
+
+		return "Unbenannte AkteurIn";
 	
 	};
 	
-	
+	/*
 	my.doesEveryPersonHaveValidBirthYear = function(){
 	
 		for (var i = 0; i < my.persons.length; i++){
@@ -589,24 +561,8 @@ eldp_environment.workflow[1] = (function(){
 		return true;	
 	
 	};
-	
-	
-	my.doesEveryPersonHaveALanguage = function(){
-	
-		for (var i = 0; i < my.persons.length; i++){
-		
-			if (my.persons.get(i).languages.actor_languages.length == 0){
-			
-				return false;
-			
-			}
-			
-		}
-		
-		return true;	
-	
-	};
-	
+*/	
+
 
 	my.areAllPersonsNamed = function(){
 	

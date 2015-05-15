@@ -506,3 +506,9 @@ cursor: pointer;
 float: right;
 
 }
+
+
+.left_wrap{
+	  float: left;
+  margin-right: 50px;
+}
