@@ -6,7 +6,7 @@ lido_environment.forms.start = {
 	fields: [
 		{
 			type: "subarea",
-			title: "Digitalisierungssignatur",
+			heading: "Digitalisierungssignatur",
 			name: "digitalisierungssignatur",
 			fields: [
 				{
@@ -19,14 +19,14 @@ lido_environment.forms.start = {
 		},
 		{
 			type: "subarea",
-			title: "Eintragsdokumentation",
+			heading: "Eintragsdokumentation",
 			name: "eintragsdokumentation",
 			fields: [
 				{
 					heading: "Eintragsart",
 					name: "eintragsart",
 					type: "open_vocabulary",
-					vocabulary: [],
+					vocabulary: ["Einzelobjekt", "Konvolut"],
 				},
 				{
 					heading: "Objektsignatur",
@@ -87,7 +87,7 @@ lido_environment.forms.objektbeschreibung = {
 					default_value: "Theaterwissenschaftliche Sammlung, UNiversität zu Köln"
 				},
 				{
-					heading: "Standort in der TWS"
+					heading: "Standort in der TWS",
 					name: "standort_tws",
 					type: "open_vocabulary",
 					vocabulary: []
@@ -114,7 +114,7 @@ lido_environment.forms.objektbeschreibung = {
 				{
 					type: "subarea",
 					heading: "Thematik / Bildinhalt / Abgebildete Person",
-					name: "thematik"
+					name: "thematik",
 					fields: [
 						{
 							heading: "Thematik",
@@ -141,6 +141,11 @@ lido_environment.forms.herstellung = {
 			type: "textarea"
 		},
 		{
+			heading: "Ort",
+			name: "ort",
+			type: "text"
+		},
+		{
 			heading: "Datum (frühestes)",
 			name: "earliest_date",
 			type: "year"
@@ -152,7 +157,7 @@ lido_environment.forms.herstellung = {
 		},
 		{
 			heading: "Kultureller Kontext",
-			name: "culture"
+			name: "culture",
 			type: "text"
 		}
 	]
@@ -209,11 +214,16 @@ lido_environment.forms.inszenierung = {
 			name: "titel",
 			heading: "Titel",
 			type: "text"
-		}
+		},
 		{
 			heading: "Performance-Beschreibung",
 			name: "performancebeschreibung",
 			type: "textarea"
+		},
+		{
+			heading: "Ort",
+			name: "ort",
+			type: "text"
 		},
 		{
 			heading: "Datum (frühestes)",
@@ -227,7 +237,7 @@ lido_environment.forms.inszenierung = {
 		},
 		{
 			heading: "Kultureller Kontext",
-			name: "culture"
+			name: "culture",
 			type: "text"
 		}
 	]
@@ -291,6 +301,11 @@ lido_environment.forms.erwerb = {
 			type: "textarea"
 		},
 		{
+			heading: "Ort",
+			name: "ort",
+			type: "text"
+		},
+		{
 			heading: "Datum (frühestes)",
 			name: "earliest_date",
 			type: "year"
@@ -302,7 +317,7 @@ lido_environment.forms.erwerb = {
 		},
 		{
 			heading: "Kultureller Kontext",
-			name: "culture"
+			name: "culture",
 			type: "text"
 		}
 	]
