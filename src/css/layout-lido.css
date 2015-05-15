@@ -1,6 +1,6 @@
 ﻿
 
-#persons{
+#lidopersons{
 
 left: 0px;
 right: 0px;
@@ -271,7 +271,7 @@ padding: 5px 10px;
 
 /*--- Actors ---*/
 
-.person_languages_entry{
+.lidoperson_languages_entry{
 
 	background-color: tomato;
 	border-radius: 5px;
@@ -286,13 +286,13 @@ padding: 5px 10px;
 
 }
 
-#person_languages_td{
+#lidoperson_languages_td{
 
 	width: 350px;
 
 }
 
-#person_list{
+#lidoperson_list{
 
 	width: 215px;
 	position: fixed;
@@ -315,7 +315,7 @@ padding: 5px 10px;
 
 }
 
-.person_list_entry h2{
+.lidoperson_list_entry h2{
 
 	line-height: 0em;
 	white-space: nowrap;
@@ -323,31 +323,31 @@ padding: 5px 10px;
 
 }
 
-#person_title_div{
+.lidoperson_title_div{
 
 	padding: 15px;
 
 }
 
-#person_content_div{
+.lidoperson_content_div{
 
 	background-color: #AABFFF;
+	padding: 10px;
+	
 }
 
-#person_view{
+.lidoperson_view{
 
 	background-color: lightskyblue;
 	float: left;
 	left: 560px;
 	position: absolute;
-	right: 30px;
 	border-radius: 10px;
 	display: block;
-	min-width: 850px;
 
 }
 
-.person_list_entry{
+.lidoperson_list_entry{
 
 	line-height: 0em;
 	cursor: pointer;
@@ -359,19 +359,20 @@ padding: 5px 10px;
 	margin-bottom: 10px;
 }
 
-#person_options_div{
+#lidoperson_options_div{
 	width: 300px;
 }
 
-#person_form_title{
+.lidoperson_form_title{
 
 	display: inline;
+	padding: 0px;
 
 }
 
 /*--- Sessions ---*/
 
-.session_table, .person_table{
+.session_table, .lidoperson_table{
 	
 	border: none;
 	margin-top: 0px;
@@ -392,26 +393,26 @@ padding: 5px 10px;
 }
 
 
-.session_table tr td, .person_table tr td{
+.session_table tr td, .lidoperson_table tr td{
 
 border-top: none;
 
 }
 
-.persons{
+.lidopersons{
 
 clear: both;
 
 }
 
-.person_name_disp{
+.lidoperson_name_disp{
 
 line-height: 16pt;
 
 
 }
 
-.person_role_disp{
+.lidoperson_role_disp{
 
 font-size: 10pt;
 margin: 0px;
@@ -427,7 +428,7 @@ width: 150px;
 
 }
 
-.persons select{
+.lidopersons select{
 
 width: 240px;
 
@@ -435,7 +436,7 @@ width: 240px;
 
 
 
-.delete_person_icon{
+.delete_lidoperson_icon{
 
 height: 43px;
 float: left;
@@ -456,7 +457,7 @@ background-color: bisque;
 	
 }
 
-.person{
+.lidoperson{
 	
 padding-top: 10px;
 	
@@ -469,7 +470,7 @@ min-width: 173px;
 width: 200px;
 }
 
-.session_persons_td{
+.session_lidopersons_td{
 	
 background-color: 	#FFCCCC;
 overflow: hidden;
@@ -478,7 +479,7 @@ min-width: 250px;
 
 }
 
-.person_in_session{
+.lidoperson_in_session{
 
 background: rgb(255, 139, 199);
 line-height: 0em;
@@ -493,7 +494,7 @@ white-space: nowrap;
 margin-bottom: 10px;
 }
 
-.person_in_session_wrap{
+.lidoperson_in_session_wrap{
 
 width: 250px;
 

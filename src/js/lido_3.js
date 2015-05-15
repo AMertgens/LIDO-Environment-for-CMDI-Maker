@@ -282,19 +282,19 @@ lido_environment.workflow[2] = (function(){
 	
 	my.createFormIfNotExistent = function(){
 	
-		var ac_view = g("person_view");
+		var ac_view = g("lidoperson_view");
 		
 		if (ac_view){
 			return;
 		};
 	
-		ac_view = dom.make("div", "person_view", "person_view", my.actor_wrap);
+		ac_view = dom.make("div", "lidoperson_view", "lidoperson_view", my.actor_wrap);
 		
 		ac_view.innerHTML = "";
 		
-		var title_div = dom.make("div", my.element_id_prefix + "title_div","",ac_view);
-		dom.make("h1", my.element_id_prefix + "form_title", "", title_div, "Neue AkteurIn");
-		dom.make("div", my.element_id_prefix + "content_div","", ac_view);
+		var title_div = dom.make("div", my.element_id_prefix + "title_div", "lidoperson_title_div", ac_view);
+		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue AkteurIn");
+		dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
 
 		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.element_id_prefix, my.element_id_prefix, undefined, undefined);
 		
