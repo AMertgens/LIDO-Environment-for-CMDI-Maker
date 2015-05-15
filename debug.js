@@ -10,8 +10,8 @@ var source_scripts = [
 	"src/js/lido_generator.js",
 	"src/js/lido_forms.js",
 	"src/js/lido_1.js",
-	/*"src/js/lido_2.js",
-	"src/js/lido_3.js",
+	"src/js/lido_2.js",
+	/*"src/js/lido_3.js",
 	"src/js/lido_4.js",
 	"src/js/lido_5.js",*/
 	"src/js/lido_output.js"

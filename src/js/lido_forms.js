@@ -45,7 +45,7 @@ lido_environment.forms.objektbeschreibung = {
 	fields: [
 		{
 			type: "column",
-			heading: "Objekt-Identifikation",
+			title: "Objekt-Identifikation",
 			name: "objekt_identifikation",
 			fields: [
 				{
@@ -90,13 +90,17 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Standort in der TWS",
 					name: "standort_tws",
 					type: "open_vocabulary",
-					vocabulary: []
+					vocabulary: [
+						"Autografensammlung", "Bibliothek", "Büsten und Statuetten", "Druckgrafik", "Filmarchiv", "Fotoabteilung", "obere Grafik", "untere Grafik",
+						"Hänneschen-Sammlung", "Kriegstheaterarchiv", "Kritikenabteilung", "Programmheftabteilung", "Puppensammlung", "Rara",
+						"Schattenspielsammlung", "Zeitschriften"
+					]
 				}
 			]
 		},
 		{
 			type: "column",
-			heading: "Objekt-Zuordnung",
+			title: "Objekt-Zuordnung",
 			name: "objektzuordnung",
 			fields: [
 				{
@@ -109,7 +113,13 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Objektart",
 					name: "objektart",
 					type: "open_vocabulary",
-					vocabulary: []
+					vocabulary: [
+						"Bühnenmodell", "Brief", "Buch", "Büste", "Dia", "Film", "Filmfotografie", "Filmplakat", "Fotoalbum", "Fotonegativ",
+						"Gemälde", "Handpuppe", "Handschrift", "Inszenierungsfotografie", "Libretti", "Marionette", "Noten", "Papiertheater",
+						"Personenfotografie", "Postkarte", "Porträtgrafik", "Porzellanfigur", "Programmheft", "Rezension", "Schattenspielfigur",
+						"Statue", "Stockpuppe", "Szenische Grafik", "Tanzfotografie", "Theaterbaufotografie", "Theaterbaugrafik", "Theatermaske",
+						"Theaterplakat", "Theaterzettel", "Totenmaske", "Typoskript", "Zeitschrift", "Zeitungsausschnitt", "Sonstige Fotografie"
+					]
 				},
 				{
 					type: "subarea",

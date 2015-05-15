@@ -10,7 +10,7 @@
 	
 	my.identity = {
 		id: "object_identification",
-		title: "Object Identification",
+		title: "Objektbeschreibung",
 		icon: "blocks"
 	};
 	
@@ -18,24 +18,21 @@
 	
 	my.init = function(view){
 	
-		dom.h1(view, "Object Identification");
-		dom.br(view);
-		
-		APP.forms.make(view, my.parent.object_form, "object_identification_", "object_identification_", undefined);
+		APP.forms.make(view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
 		
 	};
 	
 	
 	my.getSaveData = function(){
 	
-		return APP.forms.makeObjectWithFormData(my.parent.object_form, "object_identification_");
+		return APP.forms.makeObjectWithFormData(my.parent.object_form, "objektbeschreibung__");
 	
 	};
 	
 	
 	my.recall = function(data){
 	
-		APP.forms.fill(my.parent.object_form, "object_identification_", data, undefined);
+		APP.forms.fill(my.parent.object_form, "objektbeschreibung_", data, undefined);
 		
 	};
 	
