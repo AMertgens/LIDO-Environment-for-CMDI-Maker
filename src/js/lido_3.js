@@ -33,8 +33,6 @@ lido_environment.workflow[2] = (function(){
 		var object = APP.forms.createEmptyObjectFromTemplate(person_form);
 
 		APP.forms.fillObjectWithFormData(object, my.element_id_prefix, person_form);
-		
-		object.languages.actor_languages = getLanguagesOfActivePersonFromForm();
 
 		return object;
 	 
@@ -72,7 +70,6 @@ lido_environment.workflow[2] = (function(){
 
 	var my = {};
 	my.parent = lido_environment;
-	var bundle;
 	
 	var person_form = my.parent.forms.actor_herstellung;
 	
@@ -94,8 +91,6 @@ lido_environment.workflow[2] = (function(){
 		my.persons.reset();
 		
 		my.module_view = view;
-		
-		bundle = my.parent.workflow[2];
 		
 		my.left_wrap = dom.make("div", my.element_id_prefix + "left_wrap", "left_wrap", my.module_view);
 		
@@ -347,11 +342,6 @@ lido_environment.workflow[2] = (function(){
 
 		my.persons.replaceActive(person_to_put);
 
-		//if the person does already exist, check if it is in a bundle and correct the person name in the bundle, if required
-		if (flag != "without_bundle_refresh"){
-			bundle.updatePersonNameInAllBundles(person_to_put.id);
-		}
-
 		return person_to_put;
 
 	};
@@ -435,52 +425,7 @@ lido_environment.workflow[2] = (function(){
 	};
 	
 	
-	/*
-	my.getAge = function (bundle_id, person_id){
-
-		var pers = my.persons.getByID(person_id);
-		
-		if (pers.age === ""){   //at first, check, if person's age hasn't been specified yet
-		
-			if (g("radio_age_calc").on){  //then, check if auto calculate feature in settings is activated
-				
-				var birthDate = pers.birth_date.year + "-" + pers.birth_date.month + "-" + my.persons[i].birth_date.day;
-				var bundleDate = get(bundle.dom_element_prefix+bundle_id+"_bundle_date_year") + "-" +
-				get(bundle.dom_element_prefix+bundle_id+"_bundle_date_month") + "-" + get(bundle.dom_element_prefix+bundle_id+"_bundle_date_day"); 
-				var age_calc_result = calcAgeAtDate(bundleDate,birthDate);
-				
-				if (age_calc_result !== 0){
-				
-					console.info("person's age successfully calculated");			
-					return age_calc_result;
-			
-				}
-				
-				else {  //if age calc = 0, age could not be calculated
-				
-					return "Unspecified";
-				
-				}
-				
-			}
-			
-			else {	//if feature is activated, but age has not been specified
-			
-				return "Unspecified";
-			
-			}
-		}
-		
-		else { //if person's age has been specified
-		
-			return pers.age;
-		
-		}
-
-	};
-	*/
-
-	my.refresh = function(not_in_bundles){
+	my.refresh = function(){
 		
 		my.actor_wrap.innerHTML = "";
 		
@@ -511,10 +456,6 @@ lido_environment.workflow[2] = (function(){
 			APP.environments.enableFunction("link_duplicateActivePerson");
 		}
 
-		if ((bundle) && (!not_in_bundles)){
-			bundle.refreshPersonLists(my.persons.getAll());
-		}
-		
 	};
 	
 	
