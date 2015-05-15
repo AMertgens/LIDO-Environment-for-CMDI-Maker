@@ -25,14 +25,14 @@
 	
 	my.getSaveData = function(){
 	
-		return APP.forms.makeObjectWithFormData(my.parent.object_form, "objektbeschreibung__");
+		return APP.forms.makeObjectWithFormData(my.parent.forms.objektbeschreibung, "objektbeschreibung_");
 	
 	};
 	
 	
 	my.recall = function(data){
 	
-		APP.forms.fill(my.parent.object_form, "objektbeschreibung_", data, undefined);
+		APP.forms.fill(my.parent.forms.objektbeschreibung, "objektbeschreibung_", data, undefined);
 		
 	};
 	

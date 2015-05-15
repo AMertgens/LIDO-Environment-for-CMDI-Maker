@@ -20,19 +20,9 @@ lido_environment.workflow[2] = (function(){
 	
 	
 	//PRIVATE
-	
-	var showLanguagesOfActivePerson = function(){
-
-		forEach(my.persons.getActive().languages.actor_languages, my.languages.set);
-
-	};
-	
-	
 	var makePersonObjectFromFormInput = function(){
 
-		var object = APP.forms.createEmptyObjectFromTemplate(person_form);
-
-		APP.forms.fillObjectWithFormData(object, my.element_id_prefix, person_form);
+		var object = APP.forms.makeObjectWithFormData(my.person_form, my.form_id_prefix);
 
 		return object;
 	 
@@ -43,7 +33,7 @@ lido_environment.workflow[2] = (function(){
 
 		g(my.element_id_prefix + "form_title").innerHTML = "Neue AkteurIn";
 
-		APP.forms.fill(person_form, my.element_id_prefix);
+		APP.forms.fill(my.person_form, my.form_id_prefix);
 
 		my.languages.clearActivePersonLanguages();
 		
@@ -70,12 +60,12 @@ lido_environment.workflow[2] = (function(){
 
 	var my = {};
 	my.parent = lido_environment;
-	
-	var person_form = my.parent.forms.actor_herstellung;
+	my.person_form = my.parent.forms.actor_herstellung;
 	
 	my.persons = new ObjectList();
 	
 	my.element_id_prefix = "lido3_";
+	my.form_id_prefix = my.element_id_prefix + "af_";
 	
 	my.identity = {
 		id: "herstellung",
@@ -258,7 +248,7 @@ lido_environment.workflow[2] = (function(){
 		
 		var person_to_display = my.persons.getActive();
 		
-		APP.forms.fill(person_form, my.element_id_prefix, person_to_display);
+		APP.forms.fill(my.person_form, my.form_id_prefix, person_to_display);
 		
 	};
 	
@@ -296,10 +286,10 @@ lido_environment.workflow[2] = (function(){
 		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue AkteurIn");
 		dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
 
-		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.element_id_prefix, my.element_id_prefix, undefined, undefined);
+		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
 		
 		//To refresh name and role in person list as soon as they are changed by the user
-		g(my.element_id_prefix + "name").addEventListener("blur", my.saveActivePerson);
+		g(my.form_id_prefix + "name").addEventListener("blur", my.saveActivePerson);
 
 	};
 
@@ -314,30 +304,18 @@ lido_environment.workflow[2] = (function(){
 		
 		person_to_put.display_name = my.getDisplayName(person_to_put);
 		
-		
-		//refreshing means, that everything gets rendered and painted anew and this would mean that
-		//textareas would reset and scroll to the top. sometimes we don't want that, especially not
-		//with auto save
-		if (flag != "without_refreshing"){
-		
-			my.save(person_to_put);
-		
-			my.refresh();
-			my.refreshFormTitle();
-			
-		}
-		
-		else {
-			my.save(person_to_put, "without_bundle_refresh");		
-		};
-		
+		my.save(person_to_put);
+	
+		my.refresh();
+		my.refreshFormTitle();
+
 		return person_to_put;
 
 		//how do we require person name?
 	};
 
 
-	my.save = function(person_to_put, flag){
+	my.save = function(person_to_put){
 	//this will always overwrite an existing person
 
 		my.persons.replaceActive(person_to_put);
@@ -360,7 +338,7 @@ lido_environment.workflow[2] = (function(){
 		
 		//if no person object is given, get the form input
 		if (!person_to_put){
-			person_to_put = APP.forms.createEmptyObjectFromTemplate(person_form);
+			person_to_put = APP.forms.createEmptyObjectFromTemplate(my.person_form);
 		}
 		
 		person_to_put.display_name = my.getDisplayName(person_to_put);
@@ -373,6 +351,7 @@ lido_environment.workflow[2] = (function(){
 		
 		//show this created person
 		my.show(person_id);
+		
 	};
 
 
