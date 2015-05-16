@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 
-lido_environment.workflow[2] = (function(){
+lido_environment.workflow[3] = (function(){
 	'use strict';
 	
 	
@@ -60,16 +60,16 @@ lido_environment.workflow[2] = (function(){
 
 	var my = {};
 	my.parent = lido_environment;
-	my.person_form = my.parent.forms.actor_herstellung;
+	my.person_form = my.parent.forms.actor_inszenierung;
 	
 	my.persons = new ObjectList();
 	
-	my.element_id_prefix = "lido3_";
+	my.element_id_prefix = "lido4_";
 	my.form_id_prefix = my.element_id_prefix + "af_";
 	
 	my.identity = {
-		id: "herstellung",
-		title: "Herstellung",
+		id: "inszenierung",
+		title: "Inszenierung",
 		icon: "user"
 	};
 	
@@ -84,10 +84,10 @@ lido_environment.workflow[2] = (function(){
 		
 		my.left_wrap = dom.make("div", my.element_id_prefix + "left_wrap", "left_wrap", my.module_view);
 		
-		dom.h2(my.left_wrap, "Herstellung des Objekts");
+		dom.h2(my.left_wrap, "Inszenierung / Performance");
 		dom.br(my.left_wrap);
 		
-		APP.forms.make(my.left_wrap, my.parent.forms.herstellung, "herstellung_", "herstellung_", undefined);
+		APP.forms.make(my.left_wrap, my.parent.forms.inszenierung, "inszenierung_", "inszenierung_", undefined);
 		
 		
 		my.actor_wrap = dom.make("div", my.element_id_prefix + "actor_wrap", "actor_wrap", my.module_view);
