@@ -195,13 +195,6 @@ lido_environment.workflow[0] = (function(){
 	};
 	
 	
-	my.setForAll = function(){
-		console.log(dom.getSelectedRadioValue("status_for_all"));
-		my.resources.setForAll("status", dom.getSelectedRadioValue("status_for_all"));
-		my.refresh();
-	};
-	
-
 	my.refresh = function(not_in_bundles) {
 		var file_entry_class;
 		//var compatibility_warning;
@@ -225,8 +218,8 @@ lido_environment.workflow[0] = (function(){
 				className: "file_entry media_file_entry",
 				parent: list,
 				status: res.status,
-				path: res.path
-				//opacity: 1
+				path: res.path,
+				dataURL: res.dataURL
 			});
 
 		});
@@ -244,13 +237,6 @@ lido_environment.workflow[0] = (function(){
 	};
 	
 	
-	my.refreshFileStateValues = function(file_index){
-	
-		my.resources.get(file_index).status = dom.getSelectedRadioValue("f_" + file_index + "_status");
-	
-	};
-	
-	
 	my.renderResource = function(options){
 		//possible options:
 		//number, title, mimeType, file_size, lastModified, id, className, parent, compatibility_warning, status, path
@@ -261,6 +247,10 @@ lido_environment.workflow[0] = (function(){
 			'<br><span class="size_span">' + "Größe" + ': ' + options.file_size + '</span><br>'+
 			'<span name="date_span" class="date_span">' + "Letzte Änderung" + ': ' + options.lastModified + '</span><br>'
 		);
+		
+		var img = dom.make("img", "res_img_"+options.id, "lidoresource_img", div);
+		img.src = options.dataURL;
+		
 		
 		div.addEventListener("click", function(num){
 			
@@ -281,17 +271,37 @@ lido_environment.workflow[0] = (function(){
 		// files is a FileList of File objects. List some properties.
 		var output = [];
 		for (var i = 0, f; !!(f = FileList[i]); i++) {
-			my.resources.add({
-				name: f.name,
-				type: f.type || 'n/a',
-				size: strings.bytesToSize(f.size, 1),
-				lastModified: f.lastModifiedDate.toLocaleDateString(),
-				status: "stable"
-			});
+		
+			my.addFileToList(f);
+			
+
 		}
 		
-		my.refresh();
+	};
+	
+	
+	my.addFileToList = function(file){
+	
+		var reader = new FileReader();
 		
+		reader.onloadend = function () {
+			
+			my.resources.add({
+				name: file.name,
+				type: file.type || 'n/a',
+				size: strings.bytesToSize(file.size, 1),
+				lastModified: file.lastModifiedDate.toLocaleDateString(),
+				status: "stable",
+				dataURL: reader.result
+			});
+			
+			my.refresh();
+			
+		};
+		
+		reader.readAsDataURL(file);
+	
+	
 	};
   
 
@@ -300,53 +310,6 @@ lido_environment.workflow[0] = (function(){
 		my.resources.sortByKey("name");
 		my.refresh();
 		
-	};
-  
-
-	my.createBundlePerResource = function(){
-
-		var f;
-
-		var radio_buttons = dom.getByName("radio_file_type");
-		var chosen_file_type = dom.getSelectedRadioValue(radio_buttons);	
-
-		console.log("Searching for files of chosen file type " + chosen_file_type);
-		
-		if (chosen_file_type == "selected"){
-		
-			console.log("Searching for selected files");
-			
-			for (f=0; f<my.fileSelection.selected_files.length; f++){
-			
-				var id = my.resources.idOf(my.fileSelection.selected_files[f]);
-		
-				my.createBundleWithResourceAndCheckForAdditionalResourcesToAdd(id);
-			
-			}
-			
-			return;
-		
-		}
-		
-		else {    //for all media files of filetype
-		
-			for (f = 0; f < my.resources.length; f++){
-			
-				var file_type = strings.getFileTypeFromFilename(my.resources.get(f).name);
-			
-				if (file_type == chosen_file_type){
-				
-					console.log("Found a file of file type " + chosen_file_type);
-					
-					my.createBundleWithResourceAndCheckForAdditionalResourcesToAdd(my.resources.idOf(f));
-				
-				}
-				
-			}
-			
-		}
-
-
 	};
 	
 	
@@ -358,30 +321,7 @@ lido_environment.workflow[0] = (function(){
 		my.refresh();
 		
 	};
-	
-	
-	my.createBundleWithResourceAndCheckForAdditionalResourcesToAdd = function(id){
 
-		var session_name = strings.replaceAccentBearingLettersWithASCISubstitute(strings.removeEndingFromFilename(my.resources.getByID(id).name));
-		session_name = strings.replaceCharactersInStringWithSubstitute(session_name, my.parent.not_allowed_chars, my.substitute_for_bad_chars);
-		
-		var expanded = false; //collapse automatically generated bundle
-		
-		var resource_ids = [];
-		
-		//of course, we add the resource that has been selected to the bundle 
-		resource_ids.push(id);
-		
-		//if another file's name of resources starts with the same name as this file, add it to the bundle, too!
-		var additional_resources = my.getIDsOfResourcesThatStartWithTheSameNameAsThis(id);
-		
-		//The .push method can take multiple arguments, so by using .apply to pass all the elements of the second array as arguments to .push,
-		resource_ids.push.apply(resource_ids, additional_resources);
-		
-		bundle.createNewBundleWithResources(session_name, expanded, resource_ids);
-
-	};
-	
 	
 	my.getIDsOfResourcesThatStartWithTheSameNameAsThis = function (id){
 	

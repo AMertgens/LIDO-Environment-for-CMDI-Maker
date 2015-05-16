@@ -197,6 +197,14 @@ padding: 5px 10px;
 }
 
 
+.lidoresource_img{
+
+  max-width: 255px;
+  max-height: 150px;
+
+}
+
+
 
 .file_entry{
 
@@ -207,7 +215,7 @@ padding: 5px 10px;
 	margin-right: 20px;
 	margin-bottom: 20px;
 	float: left;
-	height: 116px;
+	height: 200px;
 	overflow: hidden;
 	cursor: pointer;
 
