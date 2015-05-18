@@ -166,7 +166,10 @@ lido_environment.workflow[0] = (function(){
 	
 	my.getSaveData = function(){
 	
-		return my.resources.getState();
+		//currently not possible because too much data with uploaded images!
+		//we could remove the dataURLs from the array and save it then
+		//return my.resources.getState();
+		return;
 	
 	};
 	
