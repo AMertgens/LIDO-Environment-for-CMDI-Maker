@@ -167,9 +167,10 @@ lido_environment.workflow[0] = (function(){
 	my.getSaveData = function(){
 	
 		//currently not possible because too much data with uploaded images!
-		//we could remove the dataURLs from the array and save it then
-		//return my.resources.getState();
-		return;
+		//so we remove the dataURLs from the array and save it then
+		my.resources.deleteKeyInAllItems("dataURL");
+		
+		return my.resources.getState();
 	
 	};
 	
@@ -251,8 +252,12 @@ lido_environment.workflow[0] = (function(){
 			'<span name="date_span" class="date_span">' + "Letzte Änderung" + ': ' + options.lastModified + '</span><br>'
 		);
 		
-		var img = dom.make("img", "res_img_"+options.id, "lidoresource_img", div);
-		img.src = options.dataURL;
+		if (options.dataURL){
+		
+			var img = dom.make("img", "res_img_"+options.id, "lidoresource_img", div);
+			img.src = options.dataURL;
+		
+		}
 		
 		
 		div.addEventListener("click", function(num){

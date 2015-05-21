@@ -3,10 +3,10 @@
 
 	var my = {};
 	
-	var start;
-	var object_identification;
-	var event;
-	var object_relation;
+	var lido1;
+	var lido2;
+	var lido3;
+	var lido4;
 	
 	my.parent = lido_environment;
 	
@@ -21,10 +21,10 @@
 	
 	my.init = function(view_element){
 	
-		start = my.parent.workflow[0];
-		object_identification = my.parent.workflow[1];
-		event = my.parent.workflow[2];
-		object_relation = my.parent.workflow[3];
+		lido1 = my.parent.workflow[0];
+		lido2 = my.parent.workflow[1];
+		lido3 = my.parent.workflow[2];
+		lido4 = my.parent.workflow[3];
 	
 		my.view_element = view_element;
 		
@@ -35,8 +35,8 @@
 	
 		APP.save();
 		
-		if (start.getSaveData().object_id == ""){
-			APP.view("VIEW_lido_start");
+		if (lido1.getSaveData().object_id == ""){
+			APP.view("VIEW_lido_lido1");
 			APP.alert("You must provide a valid Record ID!");
 			return;		
 		}
@@ -56,10 +56,10 @@
 		my.view_element.innerHTML = "";
 		
 		var data = {
-			start: start.getSaveData(),
-			object_identification: object_identification.getSaveData(),
-			event: event.getSaveData(),
-			object_relation: object_relation.getSaveData()
+			lido1: lido1.getSaveData(),
+			lido2: lido2.getSaveData(),
+			lido3: lido3.getSaveData(),
+			lido4: lido4.getSaveData()
 		};
 		
 		var xml_string = lido_environment.lido_generator(data);
