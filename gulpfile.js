@@ -18,15 +18,15 @@ var notify = require('gulp-notify');
 
 
 var source_scripts = [
-	/*LIDO */
-	"./src/js/lido_main.js",
-	"./src/js/lido_forms.js",	
-	"./src/js/lido_start.js",
-	"./src/js/lido_object_identification.js",
-	"./src/js/lido_event.js",	
-	"./src/js/lido_object_relation.js",	
-	"./src/js/lido_output.js",
-	"./src/js/lido_generator.js",
+	"src/js/lido_main.js",
+	"src/js/lido_generator.js",
+	"src/js/lido_forms.js",
+	"src/js/lido_1.js",
+	"src/js/lido_2.js",
+	"src/js/lido_3.js",
+	"src/js/lido_4.js",
+	"src/js/lido_5.js",
+	"src/js/lido_output.js"
 ];
  
  
@@ -86,15 +86,17 @@ gulp.task('script-workers', function() {
 });
 
 
-var style_sources = [];
+var style_sources = [
+	"./src/css/layout-lido.css",
+];
 
 
 // CSS concat and minify
 gulp.task('styles', function() {
   gulp.src(style_sources)
-    .pipe(concat('styles.css'))
+    .pipe(concat('lido_environment.css'))
     .pipe(minifyCSS())
-    .pipe(gulp.dest('./build/styles/'))
+    .pipe(gulp.dest('./build/'))
 	.pipe(notify({message: 'Styles task complete'}));
 });
 
@@ -129,7 +131,7 @@ gulp.task('resize', function () {
 
 
 // default gulp task
-gulp.task('default', ['scripts'], function() {});
+gulp.task('default', ['scripts', 'styles'], function() {});
 
 
 // Error handler
