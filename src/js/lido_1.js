@@ -43,6 +43,10 @@ lido_environment.workflow[0] = (function(){
 	
 		var div = dom.make("div","files","",view);
 		
+				
+		APP.forms.make(div, lido_environment.forms.start, "start_form_", "", undefined, undefined);
+		
+		
 		dom.h3(div, "Dateien importieren");
 		var drop_zone = APP.GUI.FORMS.fileDropZone(div, "drop_zone", my.pushFileMetadata);
 
@@ -56,9 +60,7 @@ lido_environment.workflow[0] = (function(){
 			'<h4>' + "Escape" + '</h4>'+
 			'<p>' + "Alle Dateien werden deselektiert" + '</p>'
 		);
-		
-		APP.forms.make(div, lido_environment.forms.start, "start_form_", "", undefined, undefined);
-		
+
 		var file_list_div = dom.make("div","file_list_div","",view);
 		var list = dom.make("div","list","",file_list_div);
 		
