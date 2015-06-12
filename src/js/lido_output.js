@@ -7,6 +7,7 @@
 	var lido2;
 	var lido3;
 	var lido4;
+	var lido5;
 	
 	my.parent = lido_environment;
 	
@@ -25,6 +26,7 @@
 		lido2 = my.parent.workflow[1];
 		lido3 = my.parent.workflow[2];
 		lido4 = my.parent.workflow[3];
+		lido5 = my.parent.workflow[4];
 	
 		my.view_element = view_element;
 		
@@ -59,7 +61,8 @@
 			lido1: lido1.getSaveData(),
 			lido2: lido2.getSaveData(),
 			lido3: lido3.getSaveData(),
-			lido4: lido4.getSaveData()
+			lido4: lido4.getSaveData(),
+			lido5: lido5.getSaveData()
 		};
 		
 		var xml_string = lido_environment.lido_generator(data);
