@@ -36,7 +36,8 @@
 			["xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance"],
 			["xsi:schemaLocation","http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd"]
 		]);
-		xml.element("lidoRecID", lido_environment.forms.start.digitalisierungssignatur, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"], ["lido:type","local"]]);
+		//xml.element("lidoRecID", lido_environment.forms.start.digitalisierungssignatur, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"], ["lido:type","local"]]);
+		xml.element("lidoRecID", data.lido1.start_form.digitalisierungssignatur.digitalisierungssignatur, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"], ["lido:type","local"]]);
 	
 	};
 

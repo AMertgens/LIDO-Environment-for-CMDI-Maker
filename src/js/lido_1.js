@@ -158,8 +158,10 @@ lido_environment.workflow[0] = (function(){
 	my.recall = function(data){
 
 		if (data){
-			my.resources.setState(data);
+			my.resources.setState(data.resources);
 		}
+		
+		APP.forms.fill(lido_environment.forms.start, "start_form_", data.start_form);
 	
 		my.refresh();
 	
@@ -172,7 +174,12 @@ lido_environment.workflow[0] = (function(){
 		//so we remove the dataURLs from the array and save it then
 		my.resources.deleteKeyInAllItems("dataURL");
 		
-		return my.resources.getState();
+		var data = {
+			resources: my.resources.getState(),
+			start_form: APP.forms.makeObjectWithFormData(lido_environment.forms.start, "start_form_")
+		};
+		
+		return data;
 	
 	};
 	
