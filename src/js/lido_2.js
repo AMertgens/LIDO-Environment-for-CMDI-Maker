@@ -9,9 +9,9 @@
 	my.element_id_prefix = "actor_";
 	
 	my.identity = {
-		id: "object_identification",
+		id: "lido2",
 		title: "Objektbeschreibung",
-		icon: "blocks"
+		icon: "edit"
 	};
 	
 	my.module_view;
@@ -24,16 +24,20 @@
 	
 	
 	my.getSaveData = function(){
-	
-		return APP.forms.makeObjectWithFormData(my.parent.forms.objektbeschreibung, "objektbeschreibung_");
-	
+
+		var data = {
+			beschreibung_form: APP.forms.makeObjectWithFormData(my.parent.forms.objektbeschreibung, "objektbeschreibung_")
+		};
+		
+		return data;	
 	};
 	
 	
 	my.recall = function(data){
+
+		APP.forms.fill(lido_environment.forms.objektbeschreibung, "objektbeschreibung_", data.beschreibung_form);
 	
-		APP.forms.fill(my.parent.forms.objektbeschreibung, "objektbeschreibung_", data, undefined);
-		
+		my.refresh();	
 	};
 	
 	

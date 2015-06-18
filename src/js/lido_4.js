@@ -121,14 +121,14 @@ lido_environment.workflow[3] = (function(){
 		view.innerHTML = "";
 		
 		var no_persons_message = dom.make("h2","no_persons_text","no_persons_text", view);
-		no_persons_message.innerHTML = "Es gibt noch keine Actors." + " " + 
+		no_persons_message.innerHTML = "Es gibt noch keine AkteurInnen." + " " + 
 		"Warum ";
 
 		var new_person_link = dom.make("a", my.element_id_prefix + "new_person_link", my.element_id_prefix + "new_person_link", no_persons_message);
 
 		new_person_link.innerHTML = "erstellst";
 
-		no_persons_message.innerHTML += " du nicht einen?";
+		no_persons_message.innerHTML += " du nicht welche?";
 
 		g(my.element_id_prefix + "new_person_link").addEventListener('click', function() {my.createNewPerson(); });
 		//we have to use g here instead of no_bundles_link, because latter isn't there anymore. it has been overwritten by ...innerHTML --> logically!
@@ -286,7 +286,7 @@ lido_environment.workflow[3] = (function(){
 		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue AkteurIn");
 		dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
 
-		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
+		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_inszenierung, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
 		
 		//To refresh name and role in person list as soon as they are changed by the user
 		g(my.form_id_prefix + "name").addEventListener("blur", my.saveActivePerson);

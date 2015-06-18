@@ -331,6 +331,11 @@ padding: 5px 10px;
 
 }
 
+.clickable_list_entry h2, .clickable_list_entry_highlighted h2{
+	font-size: 15pt;
+}
+
+
 .lidoperson_title_div{
 
 	padding: 15px;

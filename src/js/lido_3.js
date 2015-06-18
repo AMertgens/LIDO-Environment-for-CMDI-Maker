@@ -68,7 +68,7 @@ lido_environment.workflow[2] = (function(){
 	my.form_id_prefix = my.element_id_prefix + "af_";
 	
 	my.identity = {
-		id: "herstellung",
+		id: "lido3",
 		title: "Herstellung",
 		icon: "user"
 	};
@@ -106,7 +106,8 @@ lido_environment.workflow[2] = (function(){
 		my.saveActivePerson("without_refreshing");	
 		
 		var object = {	
-			persons: my.persons.getState()
+			persons: my.persons.getState(),
+			herstellung_form: APP.forms.makeObjectWithFormData(lido_environment.forms.herstellung, "herstellung_")
 		};
 	
 		return object;
@@ -121,14 +122,14 @@ lido_environment.workflow[2] = (function(){
 		view.innerHTML = "";
 		
 		var no_persons_message = dom.make("h2","no_persons_text","no_persons_text", view);
-		no_persons_message.innerHTML = "Es gibt noch keine Actors." + " " + 
+		no_persons_message.innerHTML = "Es gibt noch keine AkteurInnen." + " " + 
 		"Warum ";
 
 		var new_person_link = dom.make("a", my.element_id_prefix + "new_person_link", my.element_id_prefix + "new_person_link", no_persons_message);
 
 		new_person_link.innerHTML = "erstellst";
 
-		no_persons_message.innerHTML += " du nicht einen?";
+		no_persons_message.innerHTML += " du nicht welche?";
 
 		g(my.element_id_prefix + "new_person_link").addEventListener('click', function() {my.createNewPerson(); });
 		//we have to use g here instead of no_bundles_link, because latter isn't there anymore. it has been overwritten by ...innerHTML --> logically!
@@ -138,7 +139,8 @@ lido_environment.workflow[2] = (function(){
 	
 	
 	my.recall = function(data){
-	
+		
+		APP.forms.fill(lido_environment.forms.herstellung, "herstellung_", data.herstellung_form);
 		my.persons.setState(data.persons);
 		my.refresh();
 		my.show(my.persons.getPointer());

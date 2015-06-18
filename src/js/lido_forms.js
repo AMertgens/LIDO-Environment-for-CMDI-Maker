@@ -53,7 +53,7 @@ lido_environment.forms.objektbeschreibung = {
 			fields: [
 				{
 					heading: "Titel",
-					name: "titel",
+					name: "titels",
 					type: "text",
 					comment: 'Titel des Objekts (BEISPIELE: Schattenspielfigur Hacivat des Karagöz; Parsifal, Modell; Radiozauberer, Der); wenn Inszenierungsbezug, dann hier den vollständigen deutschen Titel eintragen (auch bei Opern den deutschen Titel nehmen, nicht den italienischen); keine Kurztitel verwenden; ggf. sollte man den Titel online nochmal recherchieren; die Artikel am Ende platzieren: Der, Die, Das / Ein, Einer (BEISPIELE: „Vetter aus Dingsda, Der“; „Wintermärchen, Ein“; „Räuber, Die“)'
 				},
@@ -91,7 +91,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Besitzende Institution",
 					name: "besitzende_institution",
 					type: "text",
-					default_value: "Theaterwissenschaftliche Sammlung, UNiversität zu Köln"
+					default_value: "Theaterwissenschaftliche Sammlung, Universität zu Köln"
 				},
 				{
 					heading: "Standort in der TWS",

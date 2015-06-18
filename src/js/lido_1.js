@@ -31,8 +31,8 @@ lido_environment.workflow[0] = (function(){
 
 	my.identity = {
 		id: "lido1",
-		title: "Start",
-		icon: "blocks",
+		title: "Start: Objektidentifikation",
+		icon: "shapes",
 	};
 
 	my.view_id = "VIEW_lido1";
