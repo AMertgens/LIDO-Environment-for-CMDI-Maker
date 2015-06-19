@@ -37,7 +37,8 @@
 
 		APP.forms.fill(lido_environment.forms.objektbeschreibung, "objektbeschreibung_", data.beschreibung_form);
 	
-		my.refresh();	
+		//my.refresh();
+		
 	};
 	
 	

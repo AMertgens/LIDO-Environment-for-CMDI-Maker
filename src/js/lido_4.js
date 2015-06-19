@@ -140,7 +140,7 @@ lido_environment.workflow[3] = (function(){
 	
 	my.recall = function(data){
 	
-		APP.forms.fill(lido_environment.forms.herstellung, "inszenierung_", data.inszenierung_form);
+		APP.forms.fill(lido_environment.forms.inszenierung, "inszenierung_", data.inszenierung_form);
 		my.persons.setState(data.persons);
 		my.refresh();
 		my.show(my.persons.getPointer());
