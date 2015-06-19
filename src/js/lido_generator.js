@@ -28,6 +28,100 @@
 		};
 	}
 
+	var create_lido_aat = function (term) {
+		switch(term) {
+			case 'Bühnenmodell':
+				return '300007122';
+			case 'Brief':
+				return '300026879';
+			case 'Buch':
+				return '300028051';
+			case 'Büste':
+				return '300047457';
+			case 'Dia':
+				return '300128371';
+			case 'Film':
+				return '300136900';
+			case 'Filmfotografie':
+				return '300134997';
+			case 'Filmplakat':
+				return '300027221';
+			case 'Fotoalbum':
+				return '300026695';
+			case 'Fotonegativ':
+				return '300127173';
+			case 'Gemälde':
+				return '300033799';
+			case 'Handpuppe':
+				return '300211106';
+			case 'Handschrift':
+				return '300028571';
+			case 'Inszenierungsfotografie':
+				return '300138191';
+			case 'Libretti':
+				return '300026424';
+			case 'Marionette':
+				return '300211126';
+			case 'Noten':
+				return '300026427';
+			case 'Papiertheater':
+				return '300263033';
+			case 'Personenfotografie':
+				return '300138191';
+			case 'Porträtgrafik':
+				return '300264849';
+			case 'Porzellanfigur':
+				return '300047090';
+			case 'Postkarte':
+				return '300026778';
+			case 'Programmheft':
+				return '300027217';
+			case 'Rezension':
+				return '300054688';
+			case 'Schattenspielfigur':
+				return '300211230';
+			case 'Statue':
+				return '300047600';
+			case 'Stockpuppe':
+				return '300226128';
+			case 'Szenische Grafik':
+				return '300264849';
+			case 'Tanzfotografie':
+				return '300138191';
+			case 'Theaterbaufotografie':
+				return '300138191';
+			case 'Theaterbaugrafik':
+				return '300264849';
+			case 'Theatermaske':
+				return '300138758';
+			case 'Theaterplakat':
+				return '300027221';
+			case 'Theaterzettel':
+				return '300027217';
+			case 'Totenmaske':
+				return '300047724';
+			case 'Typoskript':
+				return '300028577';
+			case 'Zeitschrift':
+				return '300215389';
+			case 'Zeitungsausschnitt':
+				return '300026867';
+			case 'sonstige Fotografie':
+				return '300138191';
+			case 'sonstige Grafik':
+				return '300264849';
+			case 'sonstige Figur':
+				return '300047090';
+			case 'sonstige Maske':
+				return '300138758';
+			case 'sonstiges Modell':
+				return '300047753';
+			default:
+				return '';
+			
+		}
+	}
+
 	var create_lido_entry = function (data) {
     
 //Lido Head :Start
@@ -48,14 +142,14 @@
 		xml.open("objectClassificationWrap");
 			xml.open("objectWorkTypeWrap");
 				xml.open("objectWorkType");
-					xml.element("conceptID", "300264387" , [["lido:type","AAT"]]);
-					var entity = new Array("yes","300264387");
+					xml.element("conceptID", create_lido_aat(data.lido2.beschreibung_form.objektzuordnung.objektart) , [["lido:type","AAT"]]);
+					var entity = new Array("yes", create_lido_aat(data.lido2.beschreibung_form.objektzuordnung.objektart));
 					create_lido_term(data.lido2.beschreibung_form.objektzuordnung.objektgattung, entity ,"encoding_search");
 				xml.close("objectWorkType");
 			xml.close("objectWorkTypeWrap");
 			xml.open("classificationWrap");
 				xml.open("classification", [["lido:type","AAT:type"]]);
-					xml.element("conceptID", "300264387", [["lido:type","AAT:type"]]);
+					xml.element("conceptID", create_lido_aat(data.lido2.beschreibung_form.objektzuordnung.objektart), [["lido:type","AAT:type"]]);
 					xml.element("term", data.lido2.beschreibung_form.objektzuordnung.objektart, [["lido:addedSearchTerm","yes"]]);
 				xml.close("classification");
 			xml.close("classificationWrap");
@@ -335,3 +429,4 @@
 	return xml.getString();
 
 };
+

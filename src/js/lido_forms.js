@@ -125,7 +125,8 @@ lido_environment.forms.objektbeschreibung = {
 						"Gemälde", "Handpuppe", "Handschrift", "Inszenierungsfotografie", "Libretti", "Marionette", "Noten", "Papiertheater",
 						"Personenfotografie", "Postkarte", "Porträtgrafik", "Porzellanfigur", "Programmheft", "Rezension", "Schattenspielfigur",
 						"Statue", "Stockpuppe", "Szenische Grafik", "Tanzfotografie", "Theaterbaufotografie", "Theaterbaugrafik", "Theatermaske",
-						"Theaterplakat", "Theaterzettel", "Totenmaske", "Typoskript", "Zeitschrift", "Zeitungsausschnitt", "Sonstige Fotografie"
+						"Theaterplakat", "Theaterzettel", "Totenmaske", "Typoskript", "Zeitschrift", "Zeitungsausschnitt", "Sonstige Fotografie",
+						"sonstige Grafik", "sonstige Figur", "sonstige Maske", "sonstiges Modell", "sonstiges Objekt"
 					]
 				},
 				{
