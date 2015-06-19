@@ -221,7 +221,7 @@
 	
 	my.getProjectName = function(){
 		
-		return my.workflow[0].getSaveData().object_id;
+		return my.workflow[0].getSaveData().start_form.digitalisierungssignatur.digitalisierungssignatur;
 		
 	};
 	
