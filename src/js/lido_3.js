@@ -413,8 +413,11 @@ lido_environment.workflow[2] = (function(){
 		var display_names = my.persons.map(function(pers){
 			return my.getDisplayName(pers.id);
 		});
+		var display_role = my.persons.map(function(pers){
+			return my.getDisplayRole(pers.id);
+		});
 		
-		my.gui_list.refresh(display_names);
+		my.gui_list.refresh(display_names,display_role);
 		
 		if (my.persons.length == 0){
 			my.showNoPersonsMessage();
@@ -462,6 +465,31 @@ lido_environment.workflow[2] = (function(){
 
 
 		return "Unbenannte AkteurIn";
+	
+	};
+
+	my.getDisplayRole = function(person_or_person_id){
+	
+		var person;
+	
+		if (typeof person_or_person_id == "object"){
+			person = person_or_person_id;
+		}
+		
+		else if (my.persons.existsByID(person_or_person_id)){		
+			person = my.persons.getByID(person_or_person_id);
+		}
+		
+		if (!person){
+			return console.warn("Person undefined!");
+		}
+		
+		if (person.function && person.function != ""){
+			return person.function;
+		}
+
+
+		return "";
 	
 	};
 	

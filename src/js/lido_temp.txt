@@ -1,9 +1,11 @@
 
-		xml.element("lidoRecID", data.start.object_id, [["lido:source","Theaterwissenschaftliche Sammlung, Universität zu Köln"], ["lido:type","local"]]);
+		
 		xml.open("category");
 			xml.element("conceptID", data.start.concept_id,[["lido:type","AAT"]]);
 			create_lido_term(data.start.type,"de","lang");
 		xml.close("category");
+
+
 		xml.open("descriptiveMetadata", [["xml:lang","de"]]);
 			xml.open("objectClassificationWrap");
 				xml.open("objectWorkTypeWrap");
@@ -53,56 +55,56 @@
 					xml.close("objectMeasurementsSet");
 				xml.close("objectMeasurementsWrap");
 			xml.close("objectIdentificationWrap");
-			xml.open("eventWrap");
-				xml.open("eventSet");
-					xml.element("displayEvent", data.event.title);
-					xml.open("event");
-						xml.open("eventType");
-							create_lido_term(data.event.type,"de","lang");
-						xml.close("eventType");
-						xml.open("eventActor");
-							xml.open("actorInRole");
-								xml.open("actor", [["lido:type","person"]]);
-									xml.element("actorID", data.event.actor.actor_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + data.event.actor.actor_id]]);
-									xml.open("nameActorSet");
-										xml.element("appellationValue", data.event.actor.name,[["lido:pref","preferred"]]);
-										//xml.element("sourceAppellation","http://d-nb.info/gnd/118713248");
-									xml.close("nameActorSet");
-									xml.open("vitalDatesActor");
-										xml.element("earliestDate", data.event.actor.earliest_date);
-										xml.element("latestDate", data.event.actor.latest_date);
-									xml.close("vitalDatesActor");
-									xml.element("genderActor", data.event.actor.gender);
-								xml.close("actor");
-								xml.open("roleActor");
-									create_lido_term(data.event.actor.role);
-								xml.close("roleActor");
-							xml.close("actorInRole");
-						xml.close("eventActor");
-						xml.open("culture");
-							create_lido_term(data.event.culture);
-						xml.close("culture");
-						xml.open("eventDate");
-							xml.open("date");
-								xml.element("earliestDate", data.event.earliest_date);
-								xml.element("latestDate", data.event.latest_date);
-							xml.close("date");
-						xml.close("eventDate");
-						/*
-						xml.open("eventPlace");
-							xml.element("displayPlace", "");
-							xml.open("place");
-								xml.open("namePlaceSet");
-									xml.element("appellationValue","");
-								xml.close("namePlaceSet");
-								xml.open("gml");
-								xml.close("gml");
-							xml.close("place");
-						xml.close("eventPlace");
-						*/
-					xml.close("event");
-				xml.close("eventSet");
-			xml.close("eventWrap");
+				xml.open("eventWrap");
+					xml.open("eventSet");
+						xml.element("displayEvent", data.event.title);
+						xml.open("event");
+							xml.open("eventType");
+								create_lido_term(data.event.type,"de","lang");
+							xml.close("eventType");
+							xml.open("eventActor");
+								xml.open("actorInRole");
+									xml.open("actor", [["lido:type","person"]]);
+										xml.element("actorID", data.event.actor.actor_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + data.event.actor.actor_id]]);
+										xml.open("nameActorSet");
+											xml.element("appellationValue", data.event.actor.name,[["lido:pref","preferred"]]);
+											//xml.element("sourceAppellation","http://d-nb.info/gnd/118713248");
+										xml.close("nameActorSet");
+										xml.open("vitalDatesActor");
+											xml.element("earliestDate", data.event.actor.earliest_date);
+											xml.element("latestDate", data.event.actor.latest_date);
+										xml.close("vitalDatesActor");
+										xml.element("genderActor", data.event.actor.gender);
+									xml.close("actor");
+									xml.open("roleActor");
+										create_lido_term(data.event.actor.role);
+									xml.close("roleActor");
+								xml.close("actorInRole");
+							xml.close("eventActor");
+							xml.open("culture");
+								create_lido_term(data.event.culture);
+							xml.close("culture");
+							xml.open("eventDate");
+								xml.open("date");
+									xml.element("earliestDate", data.event.earliest_date);
+									xml.element("latestDate", data.event.latest_date);
+								xml.close("date");
+							xml.close("eventDate");
+							/*
+							xml.open("eventPlace");
+								xml.element("displayPlace", "");
+								xml.open("place");
+									xml.open("namePlaceSet");
+										xml.element("appellationValue","");
+									xml.close("namePlaceSet");
+									xml.open("gml");
+									xml.close("gml");
+								xml.close("place");
+							xml.close("eventPlace");
+							*/
+						xml.close("event");
+					xml.close("eventSet");
+				xml.close("eventWrap");
 			xml.open("objectRelationWrap");
 				xml.open("subjectWrap");
 					xml.open("subjectSet");
@@ -347,4 +349,56 @@
 				xml.close("resourceSet");
 			xml.close("resourceWrap");
 	
-		xml.close("administrativeMetadata");	
+		xml.close("administrativeMetadata");		
+
+
+
+//Temp Inszenierung
+xml.open("objectRelationWrap");
+			xml.open("subjectWrap");
+				xml.open("subjectSet");
+					xml.element("displaySubject", data.lido4.inszenierung_form.);
+					xml.open("subject");
+						xml.open("subjectDate");
+							xml.element("displayDate", data.lido4.inszenierung_form.subject_date);
+						xml.close("subjectDate");
+						xml.open("subjectEvent");
+							xml.element("displayEvent", data.lido4.inszenierung_form.title);
+							xml.open("event");
+								xml.open("eventType");
+									create_lido_term(data.lido4.inszenierung_form.event.type);
+								xml.close("eventType");
+								xml.open("eventName");
+									xml.element("appellationValue", data.lido4.inszenierung_form.title);
+								xml.close("eventName");
+								//Inszenierung Actor
+								forEach(data.lido4.persons.list, function(person) {
+									xml.open("eventActor"); 
+										xml.element("displayActorInRole", person.role + ": " + person.name);
+										xml.open("actorInRole");
+											xml.open("actor");
+												xml.open("nameActorSet");
+													xml.element("appellationValue", person.name);
+												xml.close("nameActorSet");
+											xml.close("actor");
+											xml.open("roleActor");
+												create_lido_term(person.role);
+											xml.close("roleActor");
+										xml.close("actorInRole");
+									xml.close("eventActor");
+								});
+								xml.open("culture");
+									create_lido_term(data.lido4.inszenierung_form.culture);
+								xml.close("culture");
+								xml.open("eventDate");
+									xml.open("date");
+										xml.element("earliestDate", data.lido4.inszenierung_form.earliest_date);
+										xml.element("latestDate", data.lido4.inszenierung_form.latest_date);
+									xml.close("date");									
+								xml.close("eventDate");
+							xml.close("event");
+						xml.close("subjectEvent");
+					xml.close("subject");
+				xml.close("subjectSet");
+			xml.close("subjectWrap");
+		xml.close("objectRelationWrap");

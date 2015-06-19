@@ -30,7 +30,7 @@
 
 	var create_lido_entry = function (data) {
     
-//Lido Head
+//Lido Head :Start
 		xml.header();	
 		xml.open("lido",[
 			["xmlns:lido", "http://www.lido-schema.org"],
@@ -43,63 +43,76 @@
 			create_lido_term(data.lido1.start_form.eintragsdokumentation.eintragsart,"de","lang");
 		xml.close("category");
 
-
-//objectIdentificationWrap
+	xml.open("descriptiveMetadata");
+//objectClassificationWrap :Objektbeschreibung
+		xml.open("objectClassificationWrap");
+			xml.open("objectWorkTypeWrap");
+				xml.open("objectWorkType");
+					xml.element("conceptID", "300264387" , [["lido:type","AAT"]]);
+					var entity = new Array("yes","300264387");
+					create_lido_term(data.lido2.beschreibung_form.objektzuordnung.objektgattung, entity ,"encoding_search");
+				xml.close("objectWorkType");
+			xml.close("objectWorkTypeWrap");
+			xml.open("classificationWrap");
+				xml.open("classification", [["lido:type","AAT:type"]]);
+					xml.element("conceptID", "300264387", [["lido:type","AAT:type"]]);
+					xml.element("term", data.lido2.beschreibung_form.objektzuordnung.objektart, [["lido:addedSearchTerm","yes"]]);
+				xml.close("classification");
+			xml.close("classificationWrap");
+		xml.close("objectClassificationWrap");
+//objectIdentificationWrap :Objektbeschreibung
 		xml.open("objectIdentificationWrap");
-				xml.open("titleWrap");
-					xml.open("titleSet");
-						xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.titels, [["lido:pref","preferred"],["xml:lang","de"]]);
-					xml.close("titleSet");
-				xml.close("titleWrap");
-				xml.open("repositoryWrap");
-					xml.open("repositorySet", [["lido:type","current"]]);
-						xml.open("repositoryName");
-							xml.open("legalBodyName");
-							xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.besitzende_institution);
-							xml.close("legalBodyName");
-						xml.close("repositoryName");
-						xml.open("repositoryLocation");
-							xml.open("namePlaceSet");
-							xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.standort_tws);
-							xml.close("namePlaceSet");
-						xml.close("repositoryLocation");
-						xml.element("workID", data.lido2.beschreibung_form.objekt_identifikation.inventarnummer,[["lido:type","inventory number"]]);
-					xml.close("repositorySet");
-				xml.close("repositoryWrap");
-				xml.open("objectDescriptionWrap");
-					xml.open("objectDescriptionSet");
-						xml.element("descriptiveNoteValue", data.lido2.beschreibung_form.objekt_identifikation.objektbeschreibung);
-					xml.close("objectDescriptionSet");
-				xml.close("objectDescriptionWrap");
-				xml.open("objectMeasurementsWrap");
-					xml.open("objectMeasurementsSet");
-						xml.open("objectMeasurements");
-							xml.open("measurementsSet");						
-								xml.element("measurementType", data.lido2.beschreibung_form.objekt_identifikation.maßtyp);
-								xml.element("measurementUnit", data.lido2.beschreibung_form.objekt_identifikation.maßeinheit);
-								xml.element("measurementValue", data.lido2.beschreibung_form.objekt_identifikation.maße);								
-							xml.close("measurementsSet");
-						xml.close("objectMeasurements");						
-					xml.close("objectMeasurementsSet");
-				xml.close("objectMeasurementsWrap");
-			xml.close("objectIdentificationWrap");
-
+			xml.open("titleWrap");
+				xml.open("titleSet");
+					xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.titels, [["lido:pref","preferred"],["xml:lang","de"]]);
+				xml.close("titleSet");
+			xml.close("titleWrap");
+			xml.open("repositoryWrap");
+				xml.open("repositorySet", [["lido:type","current"]]);
+					xml.open("repositoryName");
+						xml.open("legalBodyName");
+						xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.besitzende_institution);
+						xml.close("legalBodyName");
+					xml.close("repositoryName");
+					xml.open("repositoryLocation");
+						xml.open("namePlaceSet");
+						xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.standort_tws);
+						xml.close("namePlaceSet");
+					xml.close("repositoryLocation");
+					xml.element("workID", data.lido2.beschreibung_form.objekt_identifikation.inventarnummer,[["lido:type","inventory number"]]);
+				xml.close("repositorySet");
+			xml.close("repositoryWrap");
+			xml.open("objectDescriptionWrap");
+				xml.open("objectDescriptionSet");
+					xml.element("descriptiveNoteValue", data.lido2.beschreibung_form.objekt_identifikation.objektbeschreibung);
+				xml.close("objectDescriptionSet");
+			xml.close("objectDescriptionWrap");
+			xml.open("objectMeasurementsWrap");
+				xml.open("objectMeasurementsSet");
+					xml.open("objectMeasurements");
+						xml.open("measurementsSet");						
+							xml.element("measurementType", data.lido2.beschreibung_form.objekt_identifikation.maßtyp);
+							xml.element("measurementUnit", data.lido2.beschreibung_form.objekt_identifikation.maßeinheit);
+							xml.element("measurementValue", data.lido2.beschreibung_form.objekt_identifikation.maße);								
+						xml.close("measurementsSet");
+					xml.close("objectMeasurements");						
+				xml.close("objectMeasurementsSet");
+			xml.close("objectMeasurementsWrap");
+		xml.close("objectIdentificationWrap");
 //eventWrap :Herstellung
 		xml.open("eventWrap");
 			xml.open("eventSet");
 				xml.element("displayEvent", data.lido3.herstellung_form.herstellungsbeschreibung);
 				xml.open("event");
 					xml.open("eventType");
-						create_lido_term("Herstellung","de","lang");
+						create_lido_term("Herstellung");
 					xml.close("eventType");
 					xml.open("eventActor");
-					data.lido3.
-//Herstellung Actor
-					forEach(data.lido3.person_form, function(person) {
-					
+					//Herstellung Actor
+					forEach(data.lido3.persons.list, function(person) {
 						xml.open("actorInRole");
 							xml.open("actor", [["lido:type","person"]]);
-								xml.element("actorID", person.pnd_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + data.event.actor.pnd_id]]);
+								xml.element("actorID", person.pnd_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + person.pnd_id]]);
 								xml.open("nameActorSet");
 									xml.element("appellationValue", person.name,[["lido:pref","preferred"]]);
 								xml.close("nameActorSet");
@@ -113,9 +126,7 @@
 								create_lido_term(person.function);
 							xml.close("roleActor");
 						xml.close("actorInRole");
-
 					});	
-
 					xml.close("eventActor");
 					xml.open("culture");
 						create_lido_term(data.lido3.herstellung_form.culture);
@@ -129,7 +140,138 @@
 				xml.close("event");
 			xml.close("eventSet");
 		xml.close("eventWrap");
+//eventWrap :Inszenierung
+		xml.open("eventWrap");
+			xml.open("eventSet");
+				xml.element("displayEvent", data.lido4.inszenierung_form.performancebeschreibung);
+				xml.open("event");
+					xml.open("eventType");
+						create_lido_term("Performance");
+					xml.close("eventType");
+					xml.open("eventActor");
+					//Herstellung Actor
+					forEach(data.lido4.persons.list, function(person) {
+						xml.open("actorInRole");
+							xml.open("actor", [["lido:type","person"]]);
+								xml.element("actorID", person.pnd_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + person.pnd_id]]);
+								xml.open("nameActorSet");
+									xml.element("appellationValue", person.name,[["lido:pref","preferred"]]);
+								xml.close("nameActorSet");
+								xml.open("vitalDatesActor");
+									xml.element("earliestDate", person.geburtsjahr);
+									xml.element("latestDate", person.sterbejahr);
+								xml.close("vitalDatesActor");
+								xml.element("genderActor", person.geschlecht);
+							xml.close("actor");
+							xml.open("roleActor");
+								create_lido_term(person.function);
+							xml.close("roleActor");
+						xml.close("actorInRole");
+					});	
+					xml.close("eventActor");
+					xml.open("culture");
+						create_lido_term(data.lido4.inszenierung_form.culture);
+					xml.close("culture");
+					xml.open("eventDate");
+						xml.open("date");
+							xml.element("earliestDate", data.lido4.inszenierung_form.earliest_date);
+							xml.element("latestDate", data.lido4.inszenierung_form.latest_date);
+						xml.close("date");
+					xml.close("eventDate");
+				xml.close("event");
+			xml.close("eventSet");
+		xml.close("eventWrap");
+//eventWrap :Erwerb
+		xml.open("eventWrap");
+			xml.open("eventSet");
+				xml.element("displayEvent", data.lido5.erwerb_form.provenienzbeschreibung);
+				xml.open("event");
+					xml.open("eventType");
+						create_lido_term("Provenienz");
+					xml.close("eventType");
+					xml.open("eventActor");
+					//Herstellung Actor
+					forEach(data.lido5.persons.list, function(person) {
+						xml.open("actorInRole");
+							xml.open("actor", [["lido:type","person"]]);
+								xml.element("actorID", person.pnd_id,[["lido:type","d-nb.info"],["lido:source","http://d-nb.info/gnd/" + person.pnd_id]]);
+								xml.open("nameActorSet");
+									xml.element("appellationValue", person.name,[["lido:pref","preferred"]]);
+								xml.close("nameActorSet");
+								xml.open("vitalDatesActor");
+									xml.element("earliestDate", person.geburtsjahr);
+									xml.element("latestDate", person.sterbejahr);
+								xml.close("vitalDatesActor");
+								xml.element("genderActor", person.geschlecht);
+							xml.close("actor");
+							xml.open("roleActor");
+								create_lido_term(person.function);
+							xml.close("roleActor");
+						xml.close("actorInRole");
+					});	
+					xml.close("eventActor");
+					xml.open("culture");
+						create_lido_term(data.lido5.erwerb_form.culture);
+					xml.close("culture");
+					xml.open("eventDate");
+						xml.open("date");
+							xml.element("earliestDate", data.lido5.erwerb_form.earliest_date);
+							xml.element("latestDate", data.lido5.erwerb_form.latest_date);
+						xml.close("date");
+					xml.close("eventDate");
+				xml.close("event");
+			xml.close("eventSet");
+		xml.close("eventWrap");
+//objectRelationWrap :Objektbeschreibung
+		xml.open("objectRelationWrap");
+			xml.open("subjectWrap");
+				xml.open("subjectSet");
+					xml.element("displaySubject", data.lido2.beschreibung_form.objektzuordnung.thematik.thematik);
+					xml.open("subject");
+						xml.open("subjectDate");
+							xml.element("displayDate", "Wo soll das eingegeben werden?");
+						xml.close("subjectDate");
+						xml.open("subjectEvent");
+							xml.element("displayEvent", "Wo soll das eingegeben werden?");
+							xml.open("event");
+								xml.open("eventType");
+									create_lido_term("Wo soll das eingegeben werden?");
+								xml.close("eventType");
+								xml.open("eventName");
+									xml.element("appellationValue", "Wo soll das eingegeben werden?");
+								xml.close("eventName");
+								//Inszenierung Actor
+								
+									xml.open("eventActor"); 
+										xml.element("displayActorInRole", "Wo soll das eingegeben werden?");
+										xml.open("actorInRole");
+											xml.open("actor");
+												xml.open("nameActorSet");
+													xml.element("appellationValue", "Wo soll das eingegeben werden?");
+												xml.close("nameActorSet");
+											xml.close("actor");
+											xml.open("roleActor");
+												create_lido_term("Wo soll das eingegeben werden?");
+											xml.close("roleActor");
+										xml.close("actorInRole");
+									xml.close("eventActor");
 
+								xml.open("culture");
+									create_lido_term("Wo soll das eingegeben werden?");
+								xml.close("culture");
+								xml.open("eventDate");
+									xml.open("date");
+										xml.element("earliestDate", "Wo soll das eingegeben werden?");
+										xml.element("latestDate", "Wo soll das eingegeben werden?");
+									xml.close("date");									
+								xml.close("eventDate");
+							xml.close("event");
+						xml.close("subjectEvent");
+					xml.close("subject");
+				xml.close("subjectSet");
+			xml.close("subjectWrap");
+		xml.close("objectRelationWrap");		
+	xml.close("descriptiveMetadata");
 
 //administrativeMetadata :Infos
 			xml.open("administrativeMetadata", [["xml:lang", "de"]]);
@@ -162,7 +304,26 @@
 				xml.close("recordSource");
 			xml.close("recordWrap");
 //administrativeMetadata :Bilder
-	
+			
+			forEach(data.lido1.resources.list, function(picture) {
+				xml.open("resourceWrap");
+					xml.open("resourceSet");
+						xml.element("resourceID", picture.name, [["lido:type", "local"]]);
+						xml.open("resourceRepresentation");
+							xml.element("linkResource", picture.name);
+						xml.close("resourceRepresentation");
+						xml.open("resourceType");
+							xml.element("term", picture.type);
+						xml.close("resourceType");
+						xml.open("resourceSource");
+							xml.open("legalBodyName");
+								xml.element("appellationValue", "Theaterwissenschaftliche Sammlung, Universität zu Köln");
+							xml.close("legalBodyName");
+						xml.close("resourceSource");					
+					xml.close("resourceSet");
+				xml.close("resourceWrap");
+			});
+
 		xml.close("administrativeMetadata");	
 
 	};

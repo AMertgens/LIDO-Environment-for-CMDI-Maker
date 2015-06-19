@@ -68,7 +68,7 @@ lido_environment.workflow[4] = (function(){
 	my.form_id_prefix = my.element_id_prefix + "af_";
 	
 	my.identity = {
-		id: "erwerb",
+		id: "lido5",
 		title: "Erwerb",
 		icon: "user"
 	};
@@ -106,7 +106,8 @@ lido_environment.workflow[4] = (function(){
 		my.saveActivePerson("without_refreshing");	
 		
 		var object = {	
-			persons: my.persons.getState()
+			persons: my.persons.getState(),
+			erwerb_form: APP.forms.makeObjectWithFormData(lido_environment.forms.erwerb, "erwerb_")
 		};
 	
 		return object;
@@ -138,7 +139,7 @@ lido_environment.workflow[4] = (function(){
 	
 	
 	my.recall = function(data){
-	
+		APP.forms.fill(lido_environment.forms.erwerb, "erwerb_", data.erwerb_form);
 		my.persons.setState(data.persons);
 		my.refresh();
 		my.show(my.persons.getPointer());
@@ -412,7 +413,11 @@ lido_environment.workflow[4] = (function(){
 			return my.getDisplayName(pers.id);
 		});
 		
-		my.gui_list.refresh(display_names);
+		var display_role = my.persons.map(function(pers){
+			return my.getDisplayRole(pers.id);
+		});
+		
+		my.gui_list.refresh(display_names,display_role);
 		
 		if (my.persons.length == 0){
 			my.showNoPersonsMessage();
@@ -460,6 +465,31 @@ lido_environment.workflow[4] = (function(){
 
 
 		return "Unbenannte AkteurIn";
+	
+	};
+
+	my.getDisplayRole = function(person_or_person_id){
+	
+		var person;
+	
+		if (typeof person_or_person_id == "object"){
+			person = person_or_person_id;
+		}
+		
+		else if (my.persons.existsByID(person_or_person_id)){		
+			person = my.persons.getByID(person_or_person_id);
+		}
+		
+		if (!person){
+			return console.warn("Person undefined!");
+		}
+		
+		if (person.function && person.function != ""){
+			return person.function;
+		}
+
+
+		return "";
 	
 	};
 	
