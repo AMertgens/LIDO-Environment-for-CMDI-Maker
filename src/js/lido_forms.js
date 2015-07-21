@@ -28,6 +28,7 @@ lido_environment.forms.start = {
 					name: "eintragsart",
 					type: "open_vocabulary",
 					vocabulary: ["Einzelobjekt", "Konvolut"],
+					default_value: "Einzelobjekt",
 					comment: 'Handelt es sich um EIN Objekt oder ein OBJEKTSAMMLUNG? Wenn möglich, sollten die Objekte als Einzelobjekte erschlossen werden (BEISPIELE für Einzelobjekt: eine Maske, ein Bühnenbildentwurf, eine Fotografie; BEISPIELE für ein Konvolut: ein Fotoalbum mit mehreren Fotos oder eine Nachlass-Box mit mehreren Einzelobjekten)'
 				},
 				{
@@ -202,6 +203,7 @@ lido_environment.forms.actor_herstellung = {
 			heading: "Funktion",
 			type: "open_vocabulary",
 			vocabulary: ["BildhauerIn", "BühnenbildnerIn", "FotografIn", "KomponistIn", "KünstlerIn", "MalerIn", "ErstellerIn des Konvoluts", "VerfasserIn"],
+			default_value: "BildhauerIn"
 		},
 		{
 			name: "pnd_id",
@@ -295,7 +297,8 @@ lido_environment.forms.actor_inszenierung = {
 				"AutorIn des inszenierten Werks", "BühnenbildnerIn der Inszenierung", "ChoreographIn des inszenierten Werks",
 				"DarstellerIn der Inszenierung", "DrehbuchautorIn des Films", "KomponistIn des inszenierten Werks",
 				"Konzeptionierung", "RegisseurIn des inszenierten Werks"
-			]
+			],
+			default_value: "AutorIn des inszenierten Werks"
 		},
 		{
 			name: "pnd_id",
@@ -382,7 +385,8 @@ lido_environment.forms.actor_erwerb = {
 			type: "open_vocabulary",
 			vocabulary: [
 				"KäuferIn", "NachlasserIn", "StifterIn", "VerkäuferIn", "VermittlerIn", "VorbesitzerIn"
-			]
+			],
+			default_value: "KäuferIn"
 		},
 		{
 			name: "pnd_id",

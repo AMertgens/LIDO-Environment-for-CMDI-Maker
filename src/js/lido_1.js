@@ -43,7 +43,7 @@ lido_environment.workflow[0] = (function(){
 	
 		var div = dom.make("div","files","",view);
 		
-				
+
 		APP.forms.make(div, lido_environment.forms.start, "start_form_", "", undefined, undefined);
 		
 		
@@ -476,7 +476,9 @@ lido_environment.workflow[0] = (function(){
 
 
 	my.reset = function(){
-
+		
+		APP.forms.fill(lido_environment.forms.start, "start_form_", undefined, undefined);
+		
 		my.resources.reset();
 		my.refresh();
 

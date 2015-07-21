@@ -227,7 +227,13 @@
 	
 	
 	my.reset = function(){
-	
+		
+		my.workflow[0].reset();
+		my.workflow[1].reset();
+		my.workflow[2].reset();
+		my.workflow[3].reset();
+		my.workflow[4].reset();
+		
 		return;
 	
 	};

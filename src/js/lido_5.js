@@ -531,6 +531,18 @@ lido_environment.workflow[4] = (function(){
 		return true;
 	
 	};
+	
+	
+	my.reset = function(){
+	
+		APP.forms.fill(lido_environment.forms.erwerb, "erwerb_");
+	
+		my.persons.reset();
+		my.refresh();
+	
+	
+	};
+	
 
 	return my;
 	
