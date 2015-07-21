@@ -48,12 +48,12 @@ lido_environment.forms.objektbeschreibung = {
 	fields: [
 		{
 			type: "column",
-			title: "Objekt-Identifikation",
+			title: "Objektbeschreibung",
 			name: "objekt_identifikation",
 			fields: [
 				{
 					heading: "Titel",
-					name: "titels",
+					name: "titel",
 					type: "text",
 					comment: 'Titel des Objekts (BEISPIELE: Schattenspielfigur Hacivat des Karagöz; Parsifal, Modell; Radiozauberer, Der); wenn Inszenierungsbezug, dann hier den vollständigen deutschen Titel eintragen (auch bei Opern den deutschen Titel nehmen, nicht den italienischen); keine Kurztitel verwenden; ggf. sollte man den Titel online nochmal recherchieren; die Artikel am Ende platzieren: Der, Die, Das / Ein, Einer (BEISPIELE: „Vetter aus Dingsda, Der“; „Wintermärchen, Ein“; „Räuber, Die“)'
 				},
@@ -61,7 +61,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Objektbeschreibung",
 					name: "objektbeschreibung",
 					type: "textarea",
-					comment: 'Beschreibung des Objekts, d.h. des Materials, des Erhaltungszustands, Beschreibung von etwaig vorhandenen Inschriften; es geht nicht so sehr um den Bildinhalt, sondern um die formale Beschreibung des Objektzustands (BEISPIELE: alt-ägyptische Schattenspielfigur aus Leder mit transparenten Farbfeldern, leichte Beschädigung oben links ODER Schwarz-Weiß-Fotografie einer Faust-Inszenierung, Gelatinesilber, Beschriftung auf der Rückseite: Gustaf Gründgens als Mephisto, Willi Quadflieg als Faust ODER grafischer Entwurf, Tusche und Wasserfarben, Einstichlöcher in den Ecken)'
+					comment: 'FREITEXTFELD; keine inhaltlichen Angaben, sondern Beschreibung des Objekts, d.h. des Materials, des Erhaltungszustands, Beschreibung von etwaig vorhandenen Inschriften; es geht nicht so sehr um den Bildinhalt, sondern um die formale Beschreibung des Objektzustands (BEISPIELE: alt-ägyptische Schattenspielfigur aus Leder mit transparenten Farbfeldern, leichte Beschädigung oben links ODER Schwarz-Weiß-Fotografie einer Faust-Inszenierung, Gelatinesilber, Beschriftung auf der Rückseite: Gustaf Gründgens als Mephisto, Willi Quadflieg als Faust ODER grafischer Entwurf, Tusche und Wasserfarben, Einstichlöcher in den Ecken)'
 				},
 				{
 					heading: "Maße",
@@ -91,7 +91,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Besitzende Institution",
 					name: "besitzende_institution",
 					type: "text",
-					default_value: "Theaterwissenschaftliche Sammlung, Universität zu Köln"
+					default_value: "Theaterwissenschaftliche Sammlung, UNiversität zu Köln"
 				},
 				{
 					heading: "Standort in der TWS",
@@ -125,8 +125,7 @@ lido_environment.forms.objektbeschreibung = {
 						"Gemälde", "Handpuppe", "Handschrift", "Inszenierungsfotografie", "Libretti", "Marionette", "Noten", "Papiertheater",
 						"Personenfotografie", "Postkarte", "Porträtgrafik", "Porzellanfigur", "Programmheft", "Rezension", "Schattenspielfigur",
 						"Statue", "Stockpuppe", "Szenische Grafik", "Tanzfotografie", "Theaterbaufotografie", "Theaterbaugrafik", "Theatermaske",
-						"Theaterplakat", "Theaterzettel", "Totenmaske", "Typoskript", "Zeitschrift", "Zeitungsausschnitt", "Sonstige Fotografie",
-						"sonstige Grafik", "sonstige Figur", "sonstige Maske", "sonstiges Modell", "sonstiges Objekt"
+						"Theaterplakat", "Theaterzettel", "Totenmaske", "Typoskript", "Zeitschrift", "Zeitungsausschnitt", "Sonstige Fotografie"
 					]
 				},
 				{
@@ -138,7 +137,7 @@ lido_environment.forms.objektbeschreibung = {
 							heading: "Thematik",
 							name: "thematik",
 							type: "textarea",
-							comment: 'Worum geht es inhaltlich, kurze Beschreibung z.B. des Bildinhalts (dargestellte Person? dargestellte Inszenierung? Dargestellte Szene?) oder des Bezugsthemas (BEISPIELE: Foto von der Uraufführung von Wagners Parsifal: zu sehen ist das Bühnenbild sowie der Opernsänger XY; Spielfigur Wayang Golek; Porträt von Hansgünther Heyme…)'
+							comment: 'FREITEXTFELD; inhaltliche Bildbeschreibung; worum geht es inhaltlich? Was ist zu sehen? Schlagworte vergeben ( z.B. Thingspiel, Tanztheater, Stummfilm, ...); dargestellte Szene? Inszenierung? dargestellte Charaktere? Namen der abgebildeten Personen? BEISPIELE: Uraufführung von Wagners Parsifal, zu sehen ist das Bühnenbild zum 1. Akt, 3. Szene; Spielfigur Wayang Golek; Portrait von Hansgünther Heyme'
 						}
 					]
 				}
@@ -158,7 +157,7 @@ lido_environment.forms.herstellung = {
 			heading: "Herstellungsbeschreibung",
 			name: "herstellungsbeschreibung",
 			type: "textarea",
-			comment: 'Beschreibung der Herstellung (BEISPIEL: Bühnenbildentwurf ausgeführt im Auftrag von Richard Wagner; Fotografie aufgenommen  im Fotostudio (nicht auf der Bühne); …)'
+			comment: 'FREITEXTFELD: Beschreibung der Herstellung (BEISPIEL: Bühnenbildentwurf ausgeführt im Auftrag von Richard Wagner; Fotografie aufgenommen  im Fotostudio (nicht auf der Bühne); …)'
 		},
 		{
 			heading: "Ort",
@@ -167,16 +166,16 @@ lido_environment.forms.herstellung = {
 			comment: 'Ort der Herstellung; idealerweise hier den Städtenamen in dt. Sprache eintragen (ansonsten das Land); wenn nur die Region bekannt ist, dann diese in das Feld ‚kultureller Kontext‘ eintragen; wenn Ort unbekannt, dann leer lassen'
 		},
 		{
-			heading: "Datum (frühestes)",
+			heading: "Jahr (frühestes)",
 			name: "earliest_date",
-			type: "year",
-			comment: 'Herstellungsdatum (das früheste bekannte); wenn das Herstellungsjahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Herstellungsdatum unbekannt ist, dann frühesten und spätesten Zeitpunkt der Herstellung schätzen'
+			type: "text",
+			comment: 'frühestes/ spätestes sollte einen Zeitraum angeben, in welchem das Objekt entstanden ist; bei bekannter Jahreszahl, diese in beide Felder (frühestes und spätestes) eintragen; das Jahr der Herstellung kann auch geschätzt werden (BEISPIEL: wenn keinerlei Indizien vorliegen, kann den Zeitraum auch wiefolgt eingegrenzt werden: Lebenszeit des Künstlers/der Künstlerin; bei Fotografie aus dem Kriegstheater des 1. Weltkriegs liegt das Jahr zwischen 1914 und 1918; usw.)'
 		},
 		{
-			heading: "Datum (spätestes)",
+			heading: "Jahr (spätestes)",
 			name: "latest_date",
-			type: "year",
-			comment: 'Herstellungsdatum (das späteste bekannte); wenn das Herstellungsjahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Herstellungsdatum unbekannt ist, dann frühesten und spätesten Zeitpunkt der Herstellung schätzen'
+			type: "text",
+			comment: 'frühestes/ spätestes sollte einen Zeitraum angeben, in welchem das Objekt entstanden ist; bei bekannter Jahreszahl, diese in beide Felder (frühestes und spätestes) eintragen; das Jahr der Herstellung kann auch geschätzt werden (BEISPIEL: wenn keinerlei Indizien vorliegen, kann den Zeitraum auch wiefolgt eingegrenzt werden: Lebenszeit des Künstlers/der Künstlerin; bei Fotografie aus dem Kriegstheater des 1. Weltkriegs liegt das Jahr zwischen 1914 und 1918; usw.)'
 		},
 		{
 			heading: "Kultureller Kontext",
@@ -213,20 +212,20 @@ lido_environment.forms.actor_herstellung = {
 		{
 			name: "geburtsjahr",
 			heading: "Geburtsjahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1984; 1843)'
 		},
 		{
 			name: "sterbejahr",
 			heading: "Sterbejahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1991; 1873)'
 		},
 		{
 			name: "geschlecht",
 			heading: "Geschlecht",
 			type: "select",
-			vocabulary: ["male", "female"]
+			vocabulary: ["male", "female", "other"]
 		}
 	]
 };
@@ -248,7 +247,7 @@ lido_environment.forms.inszenierung = {
 			heading: "Performance-Beschreibung",
 			name: "performancebeschreibung",
 			type: "textarea",
-			comment: 'Beschreibung der Art der Performance (BEISPIELE: indischer Kathakali-Tanz; Performance des Kollektivs SheShePop; Operninszenierung; Freilichttheaterinszenierung, …)'
+			comment: 'FREITEXT; wenn möglich, Angaben zu Premiere/ Erstaufführung/ Theaterfestival/ Rahmen der Inszenierung etc., hier das konkrete Theater/die Spielstätte angeben; Beschreibung der Art der Performance (BEISPIELE: indischer Kathakali-Tanz; Performance des Kollektivs SheShePop; Operninszenierung; Freilichttheaterinszenierung, …)'
 		},
 		{
 			heading: "Ort",
@@ -257,16 +256,16 @@ lido_environment.forms.inszenierung = {
 			comment: 'Ort der Performance; idealerweise hier den Städtenamen in dt. Sprache eintragen (ansonsten das Land); wenn nur die Region bekannt ist, dann diese in das Feld ‚kultureller Kontext‘ eintragen; wenn Ort unbekannt, dann leer lassen'
 		},
 		{
-			heading: "Datum (frühestes)",
+			heading: "Jahr (frühestes)",
 			name: "earliest_date",
-			type: "year",
-			comment: 'Datum der Performance (das früheste bekannte im Hinblick auf das vorliegende Objekt); wenn das Jahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Datum unbekannt ist, dann leer lassen'
+			type: "text",
+			comment: 'frühestes/ spätestes sollte einen Zeitraum angeben, in welchem die Inszenierung/die Performance stattgefunden hat; bei bekannter Jahreszahl, diese in beide Felder (frühestes und spätestes) eintragen; das Jahr der Inszenierung kann auch geschätzt werden (BEISPIEL: wenn keinerlei Indizien vorliegen, kann den Zeitraum auch wiefolgt eingegrenzt werden: Lebenszeit der Regisseurin/des Regisseurs; Bezugnahme auf ein historisches Ereignis, z.B. Mauerfall = nach 1989)'
 		},
 		{
-			heading: "Datum (spätestes)",
+			heading: "Jahr (spätestes)",
 			name: "latest_date",
-			type: "year",
-			comment: 'Datum der Performance (das späteste bekannte im Hinblick auf das vorliegende Objekt); wenn das Jahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Datum unbekannt ist, dann leer lassen'
+			type: "text",
+			comment: 'frühestes/ spätestes sollte einen Zeitraum angeben, in welchem die Inszenierung/die Performance stattgefunden hat; bei bekannter Jahreszahl, diese in beide Felder (frühestes und spätestes) eintragen; das Jahr der Inszenierung kann auch geschätzt werden (BEISPIEL: wenn keinerlei Indizien vorliegen, kann den Zeitraum auch wiefolgt eingegrenzt werden: Lebenszeit der Regisseurin/des Regisseurs; Bezugnahme auf ein historisches Ereignis, z.B. Mauerfall = nach 1989)'
 		},
 		{
 			heading: "Kultureller Kontext",
@@ -307,20 +306,20 @@ lido_environment.forms.actor_inszenierung = {
 		{
 			name: "geburtsjahr",
 			heading: "Geburtsjahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1984; 1843)'
 		},
 		{
 			name: "sterbejahr",
 			heading: "Sterbejahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1991; 1873)'
 		},
 		{
 			name: "geschlecht",
 			heading: "Geschlecht",
 			type: "select",
-			vocabulary: ["male", "female"]
+			vocabulary: ["male", "female", "other"]
 		}
 	]
 };
@@ -346,15 +345,15 @@ lido_environment.forms.erwerb = {
 			comment: 'Ort des Erwerbs durch die TWS; idealerweise hier den Städtenamen in dt. Sprache eintragen (ansonsten das Land); wenn nur die Region bekannt ist, dann diese in das Feld ‚kultureller Kontext‘ eintragen; wenn Ort unbekannt, dann leer lassen'
 		},
 		{
-			heading: "Datum (frühestes)",
+			heading: "Jahr (frühestes)",
 			name: "earliest_date",
-			type: "year",
+			type: "text",
 			comment: 'Datum des Erwerbs des Objekts durch die TWS; wenn das Jahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Datum unbekannt ist, dann leer lassen'
 		},
 		{
-			heading: "Datum (spätestes)",
+			heading: "Jahr (spätestes)",
 			name: "latest_date",
-			type: "year",
+			type: "text",
 			comment: 'Datum des Erwerbs des Objekts durch die TWS; wenn das Jahr bekannt ist, dann in “frühestes Datum” und “spätestes Datum” die gleiche Jahreszahl eintragen; wenn das Datum unbekannt ist, dann leer lassen'
 		},
 		{
@@ -394,20 +393,20 @@ lido_environment.forms.actor_erwerb = {
 		{
 			name: "geburtsjahr",
 			heading: "Geburtsjahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1984; 1843)'
 		},
 		{
 			name: "sterbejahr",
 			heading: "Sterbejahr",
-			type: "year",
+			type: "text",
 			comment: 'JJJJ (BEISPIELE: 1991; 1873)'
 		},
 		{
 			name: "geschlecht",
 			heading: "Geschlecht",
 			type: "select",
-			vocabulary: ["male", "female"]
+			vocabulary: ["male", "female", "other"]
 		}
 	]
 };

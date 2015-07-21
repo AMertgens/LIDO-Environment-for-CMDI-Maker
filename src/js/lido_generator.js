@@ -243,7 +243,7 @@
 						create_lido_term("Performance");
 					xml.close("eventType");
 					xml.open("eventActor");
-					//Herstellung Actor
+					//Inszenierung Actor
 					forEach(data.lido4.persons.list, function(person) {
 						xml.open("actorInRole");
 							xml.open("actor", [["lido:type","person"]]);
@@ -284,7 +284,7 @@
 						create_lido_term("Provenienz");
 					xml.close("eventType");
 					xml.open("eventActor");
-					//Herstellung Actor
+					//Erwerb Actor
 					forEach(data.lido5.persons.list, function(person) {
 						xml.open("actorInRole");
 							xml.open("actor", [["lido:type","person"]]);
@@ -323,40 +323,42 @@
 					xml.element("displaySubject", data.lido2.beschreibung_form.objektzuordnung.thematik.thematik);
 					xml.open("subject");
 						xml.open("subjectDate");
-							xml.element("displayDate", "Wo soll das eingegeben werden?");
+							xml.element("displayDate", data.lido4.inszenierung_form.earliest_date + "[frühestens] - " + data.lido4.inszenierung_form.latest_date + "[spätestens]");
 						xml.close("subjectDate");
 						xml.open("subjectEvent");
-							xml.element("displayEvent", "Wo soll das eingegeben werden?");
+							xml.element("displayEvent", data.lido4.inszenierung_form.performancebeschreibung);
 							xml.open("event");
 								xml.open("eventType");
-									create_lido_term("Wo soll das eingegeben werden?");
+									create_lido_term("Herstellung");
+									create_lido_term("Inszenierung");
+									create_lido_term("Erwerb");
 								xml.close("eventType");
 								xml.open("eventName");
-									xml.element("appellationValue", "Wo soll das eingegeben werden?");
+									xml.element("appellationValue", data.lido4.inszenierung_form.titel);
 								xml.close("eventName");
 								//Inszenierung Actor
-								
-									xml.open("eventActor"); 
-										xml.element("displayActorInRole", "Wo soll das eingegeben werden?");
-										xml.open("actorInRole");
-											xml.open("actor");
-												xml.open("nameActorSet");
-													xml.element("appellationValue", "Wo soll das eingegeben werden?");
-												xml.close("nameActorSet");
-											xml.close("actor");
-											xml.open("roleActor");
-												create_lido_term("Wo soll das eingegeben werden?");
-											xml.close("roleActor");
-										xml.close("actorInRole");
-									xml.close("eventActor");
-
+									forEach(data.lido4.persons.list, function(person) {
+										xml.open("eventActor"); 
+											xml.element("displayActorInRole", "AkteurIn " + person.function);
+											xml.open("actorInRole");
+												xml.open("actor");
+													xml.open("nameActorSet");
+														xml.element("appellationValue", person.name);
+													xml.close("nameActorSet");
+												xml.close("actor");
+												xml.open("roleActor");
+													create_lido_term(person.function);
+												xml.close("roleActor");
+											xml.close("actorInRole");
+										xml.close("eventActor");
+									});
 								xml.open("culture");
-									create_lido_term("Wo soll das eingegeben werden?");
+									create_lido_term(data.lido4.inszenierung_form.culture);
 								xml.close("culture");
 								xml.open("eventDate");
 									xml.open("date");
-										xml.element("earliestDate", "Wo soll das eingegeben werden?");
-										xml.element("latestDate", "Wo soll das eingegeben werden?");
+										xml.element("earliestDate", data.lido4.inszenierung_form.earliest_date);
+										xml.element("latestDate", data.lido4.inszenierung_form.latest_date);										
 									xml.close("date");									
 								xml.close("eventDate");
 							xml.close("event");
@@ -368,23 +370,7 @@
 	xml.close("descriptiveMetadata");
 
 //administrativeMetadata :Infos
-			xml.open("administrativeMetadata", [["xml:lang", "de"]]);
-			xml.open("rightsWorkWrap");
-				xml.open("rightsWorkSet");
-					xml.open("rightsType");
-						xml.element("term", "Wo soll das eingegeben werden?");
-					xml.close("rightsType");
-					xml.open("rightsDate");
-						xml.element("earliestDate", "Wo soll das eingegeben werden?");
-						xml.element("latestDate", "Wo soll das eingegeben werden?");
-					xml.close("rightsDate");
-					xml.open("rightsHolder");
-						xml.open("legalBodyName");
-							xml.element("appellationValue", "Wo soll das eingegeben werden?");
-						xml.close("legalBodyName");
-					xml.close("rightsHolder");
-				xml.close("rightsWorkSet");
-			xml.close("rightsWorkWrap");				
+			xml.open("administrativeMetadata", [["xml:lang", "de"]]);				
 			
 			xml.open("recordWrap");
 				xml.element("recordID", data.lido1.start_form.eintragsdokumentation.objektsignatur, [["lido:type", "local"]]);
