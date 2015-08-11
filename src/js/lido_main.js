@@ -33,6 +33,7 @@
 		for (var n=0; n < array.length; n++){
 			
 			node = node.getElementsByTagName(array[n])[0];
+			//log(node);
 			
 		}
 		
@@ -112,19 +113,22 @@
 		//bei attributes mit prefix, bei tags ohne
 		start = {
 			"source": xmlQuery(xml, ["lidoRecID"]).getAttribute("lido:source"),
-			"digitalisierungssignatur": xmlQueryText(xml, ["lidoRecID"]),
-			"objektsignatur": xmlQueryText(xml, ["category", "conceptID"]),
-			"legal_body": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
-			"eintragsart": xmlQueryText(xml, ["category", "term"]),
+			"digitalisierungssignatur" : {
+				"digitalisierungssignatur": xmlQueryText(xml, ["lidoRecID"]),
+				"objektsignatur": xmlQueryText(xml, ["category", "conceptID"]),
+				"eintragsart": xmlQueryText(xml, ["category", "term"])
+			}
+			/*
 			"resource": {
-				"id": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceID"]),
+				"id": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
 				"link": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
 				"representation_type": xmlQuery(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation"]).getAttribute("lido:type"),
 				"type": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceType", "term"]),
 				"source": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceSource", "legalBodyName", "appellationValue"])
-			}
+			}*/
+			
 		}
-		
+		log(start);
 		my.workflow[0].recall(start);
 		
 		
