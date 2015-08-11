@@ -92,7 +92,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Besitzende Institution",
 					name: "besitzende_institution",
 					type: "text",
-					default_value: "Theaterwissenschaftliche Sammlung, UNiversität zu Köln"
+					default_value: "Theaterwissenschaftliche Sammlung, Universität zu Köln"
 				},
 				{
 					heading: "Standort in der TWS",
