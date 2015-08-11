@@ -404,7 +404,8 @@
 				xml.close("resourceWrap");
 			});
 
-		xml.close("administrativeMetadata");	
+		xml.close("administrativeMetadata");
+		xml.close("lido");	
 
 	};
 
