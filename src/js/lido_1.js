@@ -43,6 +43,9 @@ lido_environment.workflow[0] = (function(){
 	
 		var div = dom.make("div","files","",view);
 		
+		
+		dom.a(div, "", "",  undefined, "Load a document from the database.", function(){ my.parent.showIdentifierSelect();});
+		
 
 		APP.forms.make(div, lido_environment.forms.start, "start_form_", "", undefined, undefined);
 		

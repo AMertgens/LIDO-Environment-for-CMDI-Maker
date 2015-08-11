@@ -133,7 +133,7 @@
 			"objektbeschreibung": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectDescriptionWrap", "objectDescriptionSet", "descriptiveNoteValue"]),
 			"maße": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementValue"]),
 			"maßeinheit": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementUnit"]),
-			"maßtyp": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementType"])
+			"maßtyp": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementType"]),
 			"inventarnummer": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "workID"]),
 			"besitzende_institution": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
 			"standort_tws": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryLocation", "namePlaceSet", "appellationValue"]),
