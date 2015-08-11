@@ -67,7 +67,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Maße",
 					name: "maße",
 					type: "text",
-					comment: 'Höhe x Breite x Tiefe (BEISPIELE: 24 x 18; 120 x 50 x 31)'
+					comment: 'Höhe x Breite x Tiefe; Eingabe ohne Leerzeichen (BEISPIELE: 24x18; 105x47x39; 9,5x7,5)'
 				},
 				{
 					heading: "Maßeinheit",
@@ -79,7 +79,7 @@ lido_environment.forms.objektbeschreibung = {
 					heading: "Maßtyp",
 					name: "maßtyp",
 					type: "text",
-					default_value: "H x B x T"
+					default_value: "HxBxT"
 				},
 				{
 					heading: "Inventarnummer",
@@ -336,7 +336,7 @@ lido_environment.forms.erwerb = {
 			heading: "Provenienzbeschreibung",
 			name: "provenienzbeschreibung",
 			type: "textarea",
-			comment: 'Beschreibung, wie das Objekt in den Bestand der TWS gelangt ist (BEISPIELE: Niessen kaufte das Gemälde 1925 in Berlin vom Antiquariat Müller für 60 Mk.; Max Martersteig stiftete diese Figurine 1925 dem Kölner Institut; die Kritik stammt aus der Sammlung Hagen, die in den 1920er Jahren geschlossen in den Bestand der TWS überging)'
+			comment: 'FREITEXT; Beschreibung, wie das Objekt in den Bestand der TWS gelangt ist; wie viel wurde beim Erwerb bezahlt? Was sind die Quellen für die hier angegebenen Fakten? BEISPIELE: Niessen kaufte das Gemälde 1925 in Berlin vom Antiquariat Müller für 60 Mk. (vgl. Rechnung im NL Niessen im Korrespondenzordner „M“); Max Martersteig stiftete diese Figurine 1925 dem Kölner Institut (vgl. Brief von Martersteig an Niessen, Signatur: AU4962; die vorliegende Kritik ist Teil der Sammlung Hagen, die in den 1920er Jahren geschlossen in den Bestand der TWS überging)'
 		},
 		{
 			heading: "Ort",
@@ -381,7 +381,7 @@ lido_environment.forms.actor_erwerb = {
 			heading: "Funktion",
 			type: "open_vocabulary",
 			vocabulary: [
-				"KäuferIn", "NachlasserIn", "StifterIn", "VerkäuferIn", "VermittlerIn", "VorbesitzerIn"
+				"KäuferIn", "NachlasserIn", "StifterIn", "VerkäuferIn", "VermittlerIn", "VorbesitzerIn", "VerlegerIn", "DruckerIn"
 			]
 		},
 		{

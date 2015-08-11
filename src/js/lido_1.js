@@ -474,6 +474,19 @@ lido_environment.workflow[0] = (function(){
 		
 	};
 
+	my.IsSignatureOk = function(){
+
+		var Digitalisierungssignatur = my.getSaveData().start_form.digitalisierungssignatur.digitalisierungssignatur;
+		var Eintragsart = my.getSaveData().start_form.eintragsdokumentation.eintragsart;
+
+		if (Digitalisierungssignatur == '' || Eintragsart == '') {
+			return false;
+		}
+		
+		return true;	
+	
+	};
+
 
 	my.reset = function(){
 

@@ -158,7 +158,7 @@
 		xml.open("objectIdentificationWrap");
 			xml.open("titleWrap");
 				xml.open("titleSet");
-					xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.titels, [["lido:pref","preferred"],["xml:lang","de"]]);
+					xml.element("appellationValue", data.lido2.beschreibung_form.objekt_identifikation.titel, [["lido:pref","preferred"],["xml:lang","de"]]);
 				xml.close("titleSet");
 			xml.close("titleWrap");
 			xml.open("repositoryWrap");

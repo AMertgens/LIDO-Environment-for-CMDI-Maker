@@ -493,17 +493,35 @@ lido_environment.workflow[2] = (function(){
 	
 	};
 	
-	/*
+	
+	
+	my.doesHerstellungHaveValidYear = function(){
+
+		var earliestyear = my.getSaveData().herstellung_form.earliest_date;
+		var lastyear = my.getSaveData().herstellung_form.latest_date;
+		
+		if (earliestyear != '' || lastyear != '') {
+			if (earliestyear.length > 4 || lastyear.length > 4 || (/\D/.test(earliestyear)) || (/\D/.test(lastyear)) || Number(earliestyear)>Number(lastyear)) {
+				return false;
+			}
+		}
+		return true;	
+
+	};
+
+
 	my.doesEveryPersonHaveValidBirthYear = function(){
 	
+
 		for (var i = 0; i < my.persons.length; i++){
 		
-			var year = my.persons.get(i).birth_year;
+			var geburtsjahr = my.persons.get(i).geburtsjahr;
+			var sterbejahr = my.persons.get(i).sterbejahr;
 		
-			if (year.length > 4 || year == "YYYY" || year == ""){
-			
-				return false;
-			
+			if (geburtsjahr != '' || sterbejahr != '') {
+				if (geburtsjahr.length > 4 || sterbejahr.length > 4 || (/\D/.test(geburtsjahr)) || (/\D/.test(sterbejahr)) || Number(geburtsjahr)>Number(sterbejahr)) {
+					return false;
+				}
 			}
 			
 		}
@@ -511,7 +529,7 @@ lido_environment.workflow[2] = (function(){
 		return true;	
 	
 	};
-*/	
+	
 
 
 	my.areAllPersonsNamed = function(){
@@ -520,7 +538,7 @@ lido_environment.workflow[2] = (function(){
 		
 			var person = my.persons.get(i);
 		
-			if (person.fullName == "" && person.nameSortBy == "" && person.nameKnownAs == ""){
+			if (person.name == "" || person.name == "Unbenannte AkteurIn"){
 				
 				return false;
 			

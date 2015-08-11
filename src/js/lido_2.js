@@ -40,6 +40,20 @@
 		//my.refresh();
 		
 	};
+
+	my.IsDescriptionOk = function(){
+
+		var Titel 			= my.getSaveData().beschreibung_form.objekt_identifikation.titel;
+		var Objektart 		= my.getSaveData().beschreibung_form.objektzuordnung.objektart;
+		var Objektgattung 	= my.getSaveData().beschreibung_form.objektzuordnung.objektgattung;
+
+		if (Titel == '' || Objektart == '' || Objektgattung == '') {
+			return false;
+		}
+		
+		return true;	
+	
+	};
 	
 	
 	my.functions = function(){

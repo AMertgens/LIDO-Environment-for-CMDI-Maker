@@ -112,22 +112,10 @@
 		//bei attributes mit prefix, bei tags ohne
 		start = {
 			"source": xmlQuery(xml, ["lidoRecID"]).getAttribute("lido:source"),
-			"object_id": xmlQueryText(xml, ["lidoRecID"]),
-			"concept_id": xmlQueryText(xml, ["category", "conceptID"]),
+			"digitalisierungssignatur": xmlQueryText(xml, ["lidoRecID"]),
+			"objektsignatur": xmlQueryText(xml, ["category", "conceptID"]),
 			"legal_body": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
-			"type": xmlQueryText(xml, ["category", "term"]),
-			"classification": xmlQueryText(xml, ["category", "conceptID"]),
-			"rights": {
-				"type": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsType", "term"]),
-				"earliest_date": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "earliestDate"]),
-				"latest_date": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsDate", "latestDate"]),
-				"legal_body": xmlQueryText(xml, ["administrativeMetadata", "rightsWorkWrap", "rightsWorkSet", "rightsHolder", "legalBodyName", "appellationValue"])
-			},
-			"record": {
-				"id": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordID"]),
-				"type": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordType", "term"]),
-				"source": xmlQueryText(xml, ["administrativeMetadata", "recordWrap", "recordSource", "legalBodyName", "appellationValue"])
-			},
+			"eintragsart": xmlQueryText(xml, ["category", "term"]),
 			"resource": {
 				"id": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceID"]),
 				"link": xmlQueryText(xml, ["administrativeMetadata", "resourceWrap", "resourceSet", "resourceRepresentation", "linkResource"]),
@@ -140,62 +128,79 @@
 		my.workflow[0].recall(start);
 		
 		
-		var object_identification = {
+		var objektbeschreibung = {
 			"title": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "titleWrap", "titleSet", "appellationValue"]),
-			"legal_body": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
-			"inventory_number": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "workID"]),
-			"descriptive_note": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectDescriptionWrap", "objectDescriptionSet", "descriptiveNoteValue"]),
-			"display_object_measurements": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementValue"]),
-			"measurements_unit": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementUnit"]),
-			"measurements_type": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementType"]),
+			"objektbeschreibung": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectDescriptionWrap", "objectDescriptionSet", "descriptiveNoteValue"]),
+			"maße": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementValue"]),
+			"maßeinheit": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementUnit"]),
+			"maßtyp": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectMeasurementsWrap", "objectMeasurementsSet", "objectMeasurements", "measurementsSet", "measurementType"])
+			"inventarnummer": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "workID"]),
+			"besitzende_institution": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryName", "legalBodyName", "appellationValue"]),
+			"standort_tws": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "repositoryWrap", "repositorySet", "repositoryLocation", "namePlaceSet", "appellationValue"]),
+			"objektgattung": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectWorkTypeWrap", "objectWorkType", "term"]),
+			"objektart": xmlQueryText(xml, ["descriptiveMetadata", "objectIdentificationWrap", "objectWorkTypeWrap", "objectWorkType", "conceptID"]),
+			"thematik": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "displaySubject"])
 		};
 		
-		my.workflow[1].recall(object_identification);
+		my.workflow[1].recall(objektbeschreibung);
 		
 		
-		var event = {
-			"title": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "displayEvent"]),
+		var herstellung = {
+			"herstellungsbeschreibung": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "displayEvent"]),
 			"type": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventType", "term"]),
 			"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "earliestDate"]),
 			"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "latestDate"]),
 			"culture": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "culture", "term"]),
 			"actor": {
 				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
-				"actor_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
-				"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
-				"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
-				"role": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "roleActor", "term"]),
-				"gender": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "genderActor"]),
+				"pnd_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
+				"geburtsjahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
+				"sterbejahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
+				"function": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "roleActor", "term"]),
+				"geschlecht": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "genderActor"]),
 			}
 		};
 		
+		my.workflow[2].recall(herstellung);
 		
-		my.workflow[2].recall(event);
 		
-		
-		var object_relation = {
-			"display_subject": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "displaySubject"]),
-			"subject_concept": "",
-			"subject_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectDate", "displayDate"]),
-			"subject_place": "",
-			"event": {
-				"title": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "displayEvent"]),
-				"type": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventType", "term"]),
-				"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventDate", "earliestDate"]),
-				"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventDate", "latestDate"]),
-				"culture": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "culture", "term"]),
-				"actor": {
-					"name": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
-					"actor_id": "",
-					"earliest_date": "YYYY",
-					"latest_date": "YYYY",
-					"role": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventActor", "actorInRole", "roleActor"]),
-					"gender": "male"
-				}
+		var inszenierung = {
+			"titel": xmlQueryText(xml, ["descriptiveMetadata", "objectRelationWrap", "subjectWrap", "subjectSet", "subject", "subjectEvent", "event", "eventName", "appellationValue"]),
+			"performancebeschreibung": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "displayEvent"]),
+			"type": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventType", "term"]),
+			"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "earliestDate"]),
+			"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "latestDate"]),
+			"culture": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "culture", "term"]),
+			"actor": {
+				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
+				"pnd_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
+				"geburtsjahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
+				"sterbejahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
+				"function": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "roleActor", "term"]),
+				"geschlecht": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "genderActor"]),
 			}
 		};
 		
-		my.workflow[3].recall(object_relation);
+		my.workflow[3].recall(inszenierung);
+
+
+		var erwerb = {
+			"provenienzbeschreibung": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "displayEvent"]),
+			"type": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventType", "term"]),
+			"earliest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "earliestDate"]),
+			"latest_date": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventDate", "latestDate"]),
+			"culture": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "culture", "term"]),
+			"actor": {
+				"name": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "nameActorSet", "appellationValue"]),
+				"pnd_id": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "actorID"]),
+				"geburtsjahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "earliestDate"]),
+				"sterbejahr": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "vitalDatesActor", "latestDate"]),
+				"function": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "roleActor", "term"]),
+				"geschlecht": xmlQueryText(xml, ["descriptiveMetadata", "eventWrap", "eventSet", "event", "eventActor", "actorInRole", "actor", "genderActor"]),
+			}
+		};
+		
+		my.workflow[4].recall(erwerb);
 		
 		return start;
 		

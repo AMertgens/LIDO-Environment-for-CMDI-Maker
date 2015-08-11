@@ -37,10 +37,49 @@
 	
 		APP.save();
 		
-		if (lido1.getSaveData().object_id == ""){
-			APP.view("VIEW_lido_lido1");
-			APP.alert("You must provide a valid Record ID!");
+		if (!lido1.IsSignatureOk()){
+			APP.view(lido1);
+			APP.alert("Digitalisierungssignatur oder Eintragsart leer!");
 			return;		
+		}
+
+		if (!lido2.IsDescriptionOk()){
+			APP.view(lido2);
+			APP.alert("Objekttitel, Objektgattung oder Objektart leer!");
+			return;		
+		}
+
+		if (!lido3.doesHerstellungHaveValidYear()){
+			APP.view(lido3);
+			APP.alert("Das Datum bei Herstellung ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
+		}
+		if (!lido3.doesEveryPersonHaveValidBirthYear()){
+			APP.view(lido3);
+			APP.alert("Das Datum bei einem Herstellungs Akteur ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
+		}
+
+		if (!lido4.doesInszenierungHaveValidYear()){
+			APP.view(lido4);
+			APP.alert("Das Datum bei Inszenierung ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
+		}
+		if (!lido4.doesEveryPersonHaveValidBirthYear()){
+			APP.view(lido4);
+			APP.alert("Das Datum bei einem Inszenierungs Akteur ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
+		}
+
+		if (!lido5.doesErwerbHaveValidYear()){
+			APP.view(lido5);
+			APP.alert("Das Datum bei Erwerb ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
+		}
+		if (!lido5.doesEveryPersonHaveValidBirthYear()){
+			APP.view(lido5);
+			APP.alert("Das Datum bei einem Erwerbs Akteur ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
+			return;
 		}
 	
 		my.generate();
