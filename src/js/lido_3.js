@@ -549,6 +549,17 @@ lido_environment.workflow[2] = (function(){
 		return true;
 	
 	};
+	
+	
+	my.reset = function(){
+	
+		APP.forms.fill(lido_environment.forms.herstellung, "herstellung_");
+	
+		my.persons.reset();
+		my.refresh();
+	
+	
+	};
 
 	return my;
 	

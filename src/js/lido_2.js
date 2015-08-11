@@ -18,7 +18,9 @@
 	
 	my.init = function(view){
 	
-		APP.forms.make(view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
+		my.module_view = view;
+		
+		APP.forms.make(my.module_view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
 		
 	};
 	
@@ -30,6 +32,14 @@
 		};
 		
 		return data;	
+	};
+	
+	
+	my.reset = function(){
+	
+		my.module_view.innerHTML = "";
+		APP.forms.make(my.module_view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
+	
 	};
 	
 	

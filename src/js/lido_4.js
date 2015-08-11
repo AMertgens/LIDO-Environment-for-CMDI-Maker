@@ -545,6 +545,18 @@ lido_environment.workflow[3] = (function(){
 		return true;
 	
 	};
+	
+
+	my.reset = function(){
+	
+		APP.forms.fill(lido_environment.forms.inszenierung, "inszenierung_");
+	
+		my.persons.reset();
+		my.refresh();
+	
+	
+	};
+	
 
 	return my;
 	
