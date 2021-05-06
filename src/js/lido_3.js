@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2014 Sebastian Zimmer
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ lido_environment.workflow[2] = (function(){
 	
 	var blankForm = function(){
 
-		g(my.element_id_prefix + "form_title").innerHTML = "Neue AkteurIn";
+		g(my.element_id_prefix + "form_title").innerHTML = "Neue Akteur_in";
 
 		APP.forms.fill(my.person_form, my.form_id_prefix);
 
@@ -100,8 +100,108 @@ lido_environment.workflow[2] = (function(){
 		
 	};
 	
-	
-	my.getSaveData = function(){
+	// TODO Lookup von Personenindex
+
+/*
+
+
+    var xmlQueryText = function (xml, array) {
+
+        var node = xmlQuery(xml, array);
+
+        return node.textContent.trim();
+
+    };
+
+
+    var xmlQuery = function (xml, array) {
+
+        var node = xml;
+
+        for (var n = 0; n < array.length; n++) {
+
+            node = node.getElementsByTagName(array[n])[0];
+            //log(node);
+
+        }
+
+        return node;
+
+    };
+
+
+
+    my.getIdentifiersFromDB = function (callback) {
+        getWithAJAX(
+            "http://localhost:8080/exist/rest/apps/theater-history/modules/output.xq",
+            function (http) {
+
+                var xml = http.responseXML;
+                console.log(xml);
+
+                //log(xml);
+
+                var list = xmlQuery(xml, ["ul"]);
+                console.log(list.children);
+                var identifiers = map(list.children, function (header) {
+
+                    return xmlQueryText(header, []);
+
+                });
+
+                callback(identifiers);
+
+            }
+        );
+
+    };
+
+
+    my.showIdentifierSelect = function () {
+
+        my.getIdentifiersFromDB(function (identifiers) {
+
+            //log(identifiers);
+
+            APP.GUI.showSelectFrame(identifiers, identifiers, my.loadDocumentFromDB, "LIDO Documents in Database", undefined);
+
+        });
+
+
+    };
+
+
+    my.loadDocumentFromDB = function (identifier) {
+
+        var url = "http://localhost:8080/exist/rest/apps/theater-history/data/" + identifier + ".xml";
+
+        getWithAJAX(
+            url,
+            function (http) {
+
+                var xml = http.responseXML;
+                console.log("xml:")
+                console.log(xml);
+
+                //var lido = xmlQuery(xml, ["OAI-PMH", "GetRecord", "record", "metadata", "lido"]);
+                var lido = xmlQuery(xml, ["lido:lido"]);
+                console.log("lido:")
+                console.log(lido);
+                //log(lido);
+
+                my.importLIDOXML(xml);
+                //my.importLIDOXML(lido);
+
+                log("XML imported!");
+
+            }
+        );
+
+    };*/
+ //  Ende des Lookups
+
+
+    my.getSaveData = function(){
 	
 		my.saveActivePerson("without_refreshing");	
 		
@@ -122,15 +222,15 @@ lido_environment.workflow[2] = (function(){
 		view.innerHTML = "";
 		
 		var no_persons_message = dom.make("h2","no_persons_text","no_persons_text", view);
-		no_persons_message.innerHTML = "Es gibt noch keine AkteurInnen." + " " + 
-		"Warum ";
+		
 
 		var new_person_link = dom.make("a", my.element_id_prefix + "new_person_link", my.element_id_prefix + "new_person_link", no_persons_message);
 
-		new_person_link.innerHTML = "erstellst";
+		new_person_link.innerHTML = "Erstelle ";
 
-		no_persons_message.innerHTML += " du nicht welche?";
-
+		no_persons_message.innerHTML += "neue Akteur_innen.";
+       /* dom.a(my.actor_wrap, "", "",  undefined, "Person aus der Datenbank hinzuügen", function(){ my.parent.showIdentifierSelect();}
+        );*/
 		g(my.element_id_prefix + "new_person_link").addEventListener('click', function() {my.createNewPerson(); });
 		//we have to use g here instead of no_bundles_link, because latter isn't there anymore. it has been overwritten by ...innerHTML --> logically!
 		
@@ -141,9 +241,16 @@ lido_environment.workflow[2] = (function(){
 	my.recall = function(data){
 		
 		APP.forms.fill(lido_environment.forms.herstellung, "herstellung_", data.herstellung_form);
+		if (data.persons.id_counter != 0) {
+		console.log(data.persons.id_counter);
 		my.persons.setState(data.persons);
 		my.refresh();
+		my.refreshFormTitle();
 		my.show(my.persons.getPointer());
+		}
+		else {
+		my.refresh();
+		}
 	
 	};
 	
@@ -153,19 +260,19 @@ lido_environment.workflow[2] = (function(){
 			{
 				id: my.element_id_prefix + "link_new_person",
 				icon: "plus",
-				label: "Neue AkteurIn",
+				label: "Neue Akteur_in",
 				onclick: function() { my.createNewPerson(); }
 			},
 			{
 				id: my.element_id_prefix + "link_delete_active_person",
 				icon: "reset",
-				label: "Diese AkteurIn löschen",
+				label: "Diese Akteur_in löschen",
 				onclick: function() { my.handleClickOnDeletePerson(); }
 			},
 			{
 				id: my.element_id_prefix + "link_sort_persons_alphabetically",
 				icon: "az",
-				label: "AkteurInnen alphabetisch sortieren",
+				label: "Akteur_innen alphabetisch sortieren",
 				onclick: function() {
 				
 					my.saveActivePerson();
@@ -179,7 +286,7 @@ lido_environment.workflow[2] = (function(){
 			{
 				id: my.element_id_prefix + "link_duplicateActivePerson",
 				icon: "duplicate_user",
-				label: "AkteurIn duplizieren",
+				label: "Akteur_in duplizieren",
 				onclick: function() {
 					my.saveActivePerson();
 					my.persons.duplicateActive();
@@ -192,7 +299,7 @@ lido_environment.workflow[2] = (function(){
 			{
 				id: my.element_id_prefix + "link_delete_all_persons",
 				icon: "reset",
-				label: "Alle AkteurInnen löschen",
+				label: "Alle Akteur_innen löschen",
 				onclick: my.erase_database
 			}
 		];
@@ -201,7 +308,7 @@ lido_environment.workflow[2] = (function(){
 
 	my.erase_database = function(){
 
-		APP.confirm("Möchtest du wirklich alle AkteurInnen löschen?", function (e) {
+		APP.confirm("Möchtest du wirklich alle Akteur_innen löschen?", function (e) {
 
 			if (e) {
 				// user clicked "ok"
@@ -213,7 +320,7 @@ lido_environment.workflow[2] = (function(){
 				
 				my.persons.reset();
 
-				APP.log("Alle AkteurInnen gelöscht");
+				APP.log("Alle Akteur_innen gelöscht");
 				
 				my.refresh();
 
@@ -262,7 +369,7 @@ lido_environment.workflow[2] = (function(){
 		var person_name = my.getDisplayName(my.persons.getActive());
 		
 		if (person_name == ""){
-			form_title.innerHTML = "Unbenannte AkteurIn";
+			form_title.innerHTML = "Unbenannte Akteur_in";
 		}
 		
 		else {
@@ -270,7 +377,7 @@ lido_environment.workflow[2] = (function(){
 		}
 	
 	};
-	
+
 	
 	my.createFormIfNotExistent = function(){
 	
@@ -285,8 +392,10 @@ lido_environment.workflow[2] = (function(){
 		ac_view.innerHTML = "";
 		
 		var title_div = dom.make("div", my.element_id_prefix + "title_div", "lidoperson_title_div", ac_view);
-		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue AkteurIn");
-		dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
+		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue Akteur_in");
+		var content_div = dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
+		my.a(content_div,"gndlink","link","https://portal.dnb.de/opac.htm?method=showSearchForm#top", "GND");
+		dom.br(content_div);
 
 		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_herstellung, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
 		
@@ -333,7 +442,7 @@ lido_environment.workflow[2] = (function(){
 		
 		//after the current person is saved, check, if all persons have a name
 		if (!isEveryPersonNamed()){
-			APP.alert("Bitte gib all deinen AkteurInnen zuerst einen Namen!");
+			APP.alert("Bitte gib all deinen Akteur_innen zuerst einen Namen!");
 			return;
 		}
 		
@@ -369,7 +478,7 @@ lido_environment.workflow[2] = (function(){
 		
 		if (name_of_person == ""){
 		
-			confirm_message = "Möchtest du diese AkteurIn wirklich löschen?";
+			confirm_message = "Möchtest du diese Akteur_in wirklich löschen?";
 		
 		}
 		
@@ -442,7 +551,22 @@ lido_environment.workflow[2] = (function(){
 
 	};
 	
+	my.a = function(parent, id, className, href, innerHTML, onclick){
 	
+		var a = dom.newElement("a",id,className,parent,innerHTML);
+		
+		if (href){
+			a.href = href;
+			a.setAttribute('target', '_blank');
+		}
+		
+		if (typeof onclick != "undefined"){
+			a.addEventListener("click", onclick);
+		}
+		
+		return a;
+	
+	};
 	my.getDisplayName = function(person_or_person_id){
 	
 		var person;
@@ -464,7 +588,7 @@ lido_environment.workflow[2] = (function(){
 		}
 
 
-		return "Unbenannte AkteurIn";
+		return "Unbenannte Akteur_in";
 	
 	};
 
@@ -538,7 +662,7 @@ lido_environment.workflow[2] = (function(){
 		
 			var person = my.persons.get(i);
 		
-			if (person.name == "" || person.name == "Unbenannte AkteurIn"){
+			if (person.name == "" || person.name == "Unbenannte Akteur_in"){
 				
 				return false;
 			

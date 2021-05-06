@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 
-lido_environment.workflow[1] = (function(){
+lido_environment.workflow[5] = (function(){
 	'use strict';
 	
 	
@@ -31,7 +31,7 @@ lido_environment.workflow[1] = (function(){
 	
 	var blankForm = function(){
 
-		g(my.element_id_prefix + "form_title").innerHTML = "Neue Akteur_in";
+		g(my.element_id_prefix + "form_title").innerHTML = "Neue AkteurIn";
 
 		APP.forms.fill(my.person_form, my.form_id_prefix);
 
@@ -60,17 +60,16 @@ lido_environment.workflow[1] = (function(){
 
 	var my = {};
 	my.parent = lido_environment;
-	// replace herstellung durch objektbeschreibung actor
-	my.person_form = my.parent.forms.actor_objektbeschreibung;
+	my.person_form = my.parent.forms.actor_erwerb;
 	
 	my.persons = new ObjectList();
 	
-	my.element_id_prefix = "lido2_";
+	my.element_id_prefix = "lido6_";
 	my.form_id_prefix = my.element_id_prefix + "af_";
 	
 	my.identity = {
-		id: "lido2",
-		title: "Objektbeschreibung",
+		id: "lido6",
+		title: "Erwerb",
 		icon: "user"
 	};
 	
@@ -85,15 +84,14 @@ lido_environment.workflow[1] = (function(){
 		
 		my.left_wrap = dom.make("div", my.element_id_prefix + "left_wrap", "left_wrap", my.module_view);
 		
-		dom.h2(my.left_wrap, "Beschreibung des Objekts");
+		dom.h2(my.left_wrap, "Provenienz / Erwerb");
 		dom.br(my.left_wrap);
 		
-		APP.forms.make(my.left_wrap, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
+		APP.forms.make(my.left_wrap, my.parent.forms.erwerb, "erwerb_", "erwerb_", undefined);
 		
 		
 		my.actor_wrap = dom.make("div", my.element_id_prefix + "actor_wrap", "actor_wrap", my.module_view);
-		dom.h2(my.actor_wrap, "Abgebildete/erwähnte Personen");
-		dom.br(my.actor_wrap);
+		
 		my.gui_list = new APP.GUI.FORMS.clickableListSmall(my.actor_wrap, [], [], handleClickOnPersonList, my.element_id_prefix + "list", 0);
 		
 		var ac_view = dom.make("div", my.element_id_prefix + "view","", my.actor_wrap);
@@ -109,7 +107,7 @@ lido_environment.workflow[1] = (function(){
 		
 		var object = {	
 			persons: my.persons.getState(),
-			beschreibung_form: APP.forms.makeObjectWithFormData(lido_environment.forms.objektbeschreibung, "objektbeschreibung_")
+			erwerb_form: APP.forms.makeObjectWithFormData(lido_environment.forms.erwerb, "erwerb_")
 		};
 	
 		return object;
@@ -124,13 +122,14 @@ lido_environment.workflow[1] = (function(){
 		view.innerHTML = "";
 		
 		var no_persons_message = dom.make("h2","no_persons_text","no_persons_text", view);
-		no_persons_message.innerHTML = "Abgebildete / Erwähnte Person ";
+		no_persons_message.innerHTML = "Es gibt noch keine AkteurInnen." + " " + 
+		"Warum ";
 
 		var new_person_link = dom.make("a", my.element_id_prefix + "new_person_link", my.element_id_prefix + "new_person_link", no_persons_message);
 
-		new_person_link.innerHTML = "hinzufügen";
+		new_person_link.innerHTML = "erstellst";
 
-		
+		no_persons_message.innerHTML += " du nicht welche?";
 
 		g(my.element_id_prefix + "new_person_link").addEventListener('click', function() {my.createNewPerson(); });
 		//we have to use g here instead of no_bundles_link, because latter isn't there anymore. it has been overwritten by ...innerHTML --> logically!
@@ -140,8 +139,10 @@ lido_environment.workflow[1] = (function(){
 	
 	
 	my.recall = function(data){
-		
-		APP.forms.fill(lido_environment.forms.objektbeschreibung, "objektbeschreibung_", data.beschreibung_form);
+		console.log("erwerb recall");
+		console.log(data);
+
+		APP.forms.fill(lido_environment.forms.erwerb, "erwerb_", data.erwerb_form);
 		if (data.persons.id_counter != 0) {
 		console.log(data.persons.id_counter);
 		my.persons.setState(data.persons);
@@ -152,7 +153,6 @@ lido_environment.workflow[1] = (function(){
 		else {
 		my.refresh();
 		}
-	
 	};
 	
 	
@@ -161,19 +161,19 @@ lido_environment.workflow[1] = (function(){
 			{
 				id: my.element_id_prefix + "link_new_person",
 				icon: "plus",
-				label: "Neue Akteur_in",
+				label: "Neue AkteurIn",
 				onclick: function() { my.createNewPerson(); }
 			},
 			{
 				id: my.element_id_prefix + "link_delete_active_person",
 				icon: "reset",
-				label: "Diese Akteur_in löschen",
+				label: "Diese AkteurIn löschen",
 				onclick: function() { my.handleClickOnDeletePerson(); }
 			},
 			{
 				id: my.element_id_prefix + "link_sort_persons_alphabetically",
 				icon: "az",
-				label: "Akteur_innen alphabetisch sortieren",
+				label: "AkteurInnen alphabetisch sortieren",
 				onclick: function() {
 				
 					my.saveActivePerson();
@@ -187,7 +187,7 @@ lido_environment.workflow[1] = (function(){
 			{
 				id: my.element_id_prefix + "link_duplicateActivePerson",
 				icon: "duplicate_user",
-				label: "Akteur_in duplizieren",
+				label: "AkteurIn duplizieren",
 				onclick: function() {
 					my.saveActivePerson();
 					my.persons.duplicateActive();
@@ -200,7 +200,7 @@ lido_environment.workflow[1] = (function(){
 			{
 				id: my.element_id_prefix + "link_delete_all_persons",
 				icon: "reset",
-				label: "Alle Akteur_innen löschen",
+				label: "Alle AkteurInnen löschen",
 				onclick: my.erase_database
 			}
 		];
@@ -209,7 +209,7 @@ lido_environment.workflow[1] = (function(){
 
 	my.erase_database = function(){
 
-		APP.confirm("Möchtest du wirklich alle Akteur_innen löschen?", function (e) {
+		APP.confirm("Möchtest du wirklich alle AkteurInnen löschen?", function (e) {
 
 			if (e) {
 				// user clicked "ok"
@@ -221,7 +221,7 @@ lido_environment.workflow[1] = (function(){
 				
 				my.persons.reset();
 
-				APP.log("Alle Akteur_innen gelöscht");
+				APP.log("Alle AkteurInnen gelöscht");
 				
 				my.refresh();
 
@@ -270,7 +270,7 @@ lido_environment.workflow[1] = (function(){
 		var person_name = my.getDisplayName(my.persons.getActive());
 		
 		if (person_name == ""){
-			form_title.innerHTML = "Unbenannte Akteur_in";
+			form_title.innerHTML = "Unbenannte AkteurIn";
 		}
 		
 		else {
@@ -278,7 +278,7 @@ lido_environment.workflow[1] = (function(){
 		}
 	
 	};
-
+	
 	
 	my.createFormIfNotExistent = function(){
 	
@@ -294,11 +294,9 @@ lido_environment.workflow[1] = (function(){
 		
 		var title_div = dom.make("div", my.element_id_prefix + "title_div", "lidoperson_title_div", ac_view);
 		dom.make("h1", my.element_id_prefix + "form_title", "lidoperson_form_title", title_div, "Neue AkteurIn");
-		var content_div = dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
-		my.a(content_div,"gndlink","link","https://portal.dnb.de/opac.htm?method=showSearchForm#top", "GND");
-		dom.br(content_div);
+		dom.make("div", my.element_id_prefix + "content_div","lidoperson_content_div", ac_view);
 
-		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_objektbeschreibung, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
+		APP.forms.make(g(my.element_id_prefix + "content_div"), my.parent.forms.actor_erwerb, my.form_id_prefix, my.form_id_prefix, undefined, undefined);
 		
 		//To refresh name and role in person list as soon as they are changed by the user
 		g(my.form_id_prefix + "name").addEventListener("blur", my.saveActivePerson);
@@ -320,7 +318,6 @@ lido_environment.workflow[1] = (function(){
 	
 		my.refresh();
 		my.refreshFormTitle();
-		
 
 		return person_to_put;
 
@@ -344,7 +341,7 @@ lido_environment.workflow[1] = (function(){
 		
 		//after the current person is saved, check, if all persons have a name
 		if (!isEveryPersonNamed()){
-			APP.alert("Bitte gib all deinen Akteur_innen zuerst einen Namen!");
+			APP.alert("Bitte gib all deinen AkteurInnen zuerst einen Namen!");
 			return;
 		}
 		
@@ -380,7 +377,7 @@ lido_environment.workflow[1] = (function(){
 		
 		if (name_of_person == ""){
 		
-			confirm_message = "Möchtest du diese Akteur_in wirklich löschen?";
+			confirm_message = "Möchtest du diese AkteurIn wirklich löschen?";
 		
 		}
 		
@@ -424,6 +421,7 @@ lido_environment.workflow[1] = (function(){
 		var display_names = my.persons.map(function(pers){
 			return my.getDisplayName(pers.id);
 		});
+		
 		var display_role = my.persons.map(function(pers){
 			return my.getDisplayRole(pers.id);
 		});
@@ -475,7 +473,7 @@ lido_environment.workflow[1] = (function(){
 		}
 
 
-		return "Unbenannte Akteur_in";
+		return "Unbenannte AkteurIn";
 	
 	};
 
@@ -505,11 +503,10 @@ lido_environment.workflow[1] = (function(){
 	};
 	
 	
-	
-	my.doesobjektbeschreibungHaveValidYear = function(){
+	my.doesErwerbHaveValidYear = function(){
 
-		var earliestyear = my.getSaveData().objektbeschreibung_form.earliest_date;
-		var lastyear = my.getSaveData().objektbeschreibung_form.latest_date;
+		var earliestyear = my.getSaveData().erwerb_form.earliest_date;
+		var lastyear = my.getSaveData().erwerb_form.latest_date;
 		
 		if (earliestyear != '' || lastyear != '') {
 			if (earliestyear.length > 4 || lastyear.length > 4 || (/\D/.test(earliestyear)) || (/\D/.test(lastyear)) || Number(earliestyear)>Number(lastyear)) {
@@ -541,22 +538,7 @@ lido_environment.workflow[1] = (function(){
 	
 	};
 	
-	my.a = function(parent, id, className, href, innerHTML, onclick){
-	
-		var a = dom.newElement("a",id,className,parent,innerHTML);
-		
-		if (href){
-			a.href = href;
-			a.setAttribute('target', '_blank');
-		}
-		
-		if (typeof onclick != "undefined"){
-			a.addEventListener("click", onclick);
-		}
-		
-		return a;
-	
-	};
+
 
 	my.areAllPersonsNamed = function(){
 	
@@ -564,7 +546,7 @@ lido_environment.workflow[1] = (function(){
 		
 			var person = my.persons.get(i);
 		
-			if (person.name == "" || person.name == "Unbenannte Akteur_in"){
+			if (person.name == "" || person.name == "Unbenannte AkteurIn"){
 				
 				return false;
 			
@@ -575,106 +557,19 @@ lido_environment.workflow[1] = (function(){
 		return true;
 	
 	};
-	my.IsDescriptionOk = function(){
-
-		var Titel 			= my.getSaveData().beschreibung_form.objekt_identifikation.titel;
-		var Objektart 		= my.getSaveData().beschreibung_form.objektzuordnung.objektart;
-		var Objektgattung 	= my.getSaveData().beschreibung_form.objektzuordnung.objektgattung;
-
-		if (Titel == '' || Objektart == '' || Objektgattung == '') {
-			return false;
-		}
-		
-		return true;	
 	
-	};
 	
 	my.reset = function(){
 	
-		APP.forms.fill(lido_environment.forms.objektbeschreibung, "objektbeschreibung_");
+		APP.forms.fill(lido_environment.forms.erwerb, "erwerb_");
 	
 		my.persons.reset();
 		my.refresh();
 	
 	
 	};
+	
 
 	return my;
 	
 })();
-/*lido_environment.workflow.push((function(){
-	'use strict';
-	
-
-	var my = {};
-	my.parent = lido_environment;
-	var bundle;
-
-	my.element_id_prefix = "actor_";
-	
-	my.identity = {
-		id: "lido2",
-		title: "Objektbeschreibung",
-		icon: "edit"
-	};
-	
-	my.module_view;
-	
-	my.init = function(view){
-	
-		my.module_view = view;
-		
-		APP.forms.make(my.module_view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
-		
-	};
-	
-	
-	my.getSaveData = function(){
-
-		var data = {
-			beschreibung_form: APP.forms.makeObjectWithFormData(my.parent.forms.objektbeschreibung, "objektbeschreibung_")
-		};
-		
-		return data;	
-	};
-	
-	
-	my.reset = function(){
-	
-		my.module_view.innerHTML = "";
-		APP.forms.make(my.module_view, my.parent.forms.objektbeschreibung, "objektbeschreibung_", "objektbeschreibung_", undefined);
-	
-	};
-	
-	
-	my.recall = function(data){
-
-		APP.forms.fill(lido_environment.forms.objektbeschreibung, "objektbeschreibung_", data.beschreibung_form);
-	
-		//my.refresh();
-		
-	};
-
-	my.IsDescriptionOk = function(){
-
-		var Titel 			= my.getSaveData().beschreibung_form.objekt_identifikation.titel;
-		var Objektart 		= my.getSaveData().beschreibung_form.objektzuordnung.objektart;
-		var Objektgattung 	= my.getSaveData().beschreibung_form.objektzuordnung.objektgattung;
-
-		if (Titel == '' || Objektart == '' || Objektgattung == '') {
-			return false;
-		}
-		
-		return true;	
-	
-	};
-	
-	
-	my.functions = function(){
-		return [];
-	};
-
-
-	return my;
-	
-})());*/

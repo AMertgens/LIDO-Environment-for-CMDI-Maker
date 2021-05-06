@@ -8,6 +8,7 @@
 	var lido3;
 	var lido4;
 	var lido5;
+	var lido6;
 	
 	my.parent = lido_environment;
 	
@@ -27,6 +28,7 @@
 		lido3 = my.parent.workflow[2];
 		lido4 = my.parent.workflow[3];
 		lido5 = my.parent.workflow[4];
+		lido6 = my.parent.workflow[5];
 	
 		my.view_element = view_element;
 		
@@ -49,7 +51,7 @@
 			return;		
 		}
 
-		if (!lido3.doesHerstellungHaveValidYear()){
+		/*if (!lido3.doesHerstellungHaveValidYear()){
 			APP.view(lido3);
 			APP.alert("Das Datum bei Herstellung ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
 			return;
@@ -71,16 +73,16 @@
 			return;
 		}
 
-		if (!lido5.doesErwerbHaveValidYear()){
+		if (!lido6.doesErwerbHaveValidYear()){
 			APP.view(lido5);
 			APP.alert("Das Datum bei Erwerb ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
 			return;
 		}
-		if (!lido5.doesEveryPersonHaveValidBirthYear()){
+		if (!lido6.doesEveryPersonHaveValidBirthYear()){
 			APP.view(lido5);
 			APP.alert("Das Datum bei einem Erwerbs Akteur ist nicht korrekt! (Es sind nur maximal 4 Zahlen erlaubt)");
 			return;
-		}
+		}*/
 	
 		my.generate();
 		
@@ -101,30 +103,37 @@
 			lido2: lido2.getSaveData(),
 			lido3: lido3.getSaveData(),
 			lido4: lido4.getSaveData(),
-			lido5: lido5.getSaveData()
+			lido5: lido5.getSaveData(),
+			lido6: lido6.getSaveData()
 		};
 		
 		var xml_string = lido_environment.lido_generator(data);
 
 		var filename = lido_environment.getProjectName() + ".xml";
-		
-		var post_information = {
-			url: "http://dd-dariah.uni-koeln.de/exist/apps/wahn/importpage.html",
-			xml_string_key: "content",
-			additional_data: "name=" + filename,	
-			additional_headers: [
-				{
-					key: "Content-Type",
-					value: "application/x-www-form-urlencoded; charset=UTF-8"
-				}
-			]
-		};
-		
-		APP.GUI.createXMLOutputDIV(my.view_element, filename, "ta_0", xml_string, filename, false, post_information);
 
-	};
-	
-	
-	return my;
+        var post_information = {
+            url: "http://localhost:8080/exist/rest/apps/theater-history/data/cmditest/" + filename,
+            xml_string_key: "",
+            additional_data: "name=" + filename,
+            additional_headers: [
+                {
+                    key: "Content-Type",
+                    value: "application/xml"
+
+                },
+				{
+					key: "Content-Length",
+					value: xml_string.length
+				}
+            ]
+        };
+
+        APP.GUI.createXMLOutputDIV(my.view_element, filename, "ta_0", xml_string, filename, false, post_information);
+
+    };
+
+
+
+    return my;
 	
 })());
